@@ -1,0 +1,14 @@
+function fncCmdBtnBar(option) {
+    alert('Entrando en la funcion >: fncCmdBtnBar (Sin Guiones) ');
+
+    // Analizando la presion especifica y actuando en concecuencia
+    switch (option) {
+        case "bar-cmds-it-Nuevo":
+            let cmdBtnNew = document.getElementById('id-btn-Nuevo');
+            alert('El boton presionado fue >: '+ cmdBtnNew.textContent);
+            break;
+        default:
+            console.log("Se desconnoce la accion presionada.");
+            break;
+    }
+}

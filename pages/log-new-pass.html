@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <!-- Declaracion de metas de compatibilidad -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Declaracion de archivo java script -->
+        <script src="../js/devbpo.js"></script>
+        <script src="../js/devsendemail.js"></script>
+        <!-- Declaracion de estilos generales -->
+        <link rel="stylesheet" href="./css/estilos.css">
+        <!-- <link rel="stylesheet" href="./css/fonts.css"> -->
+        <!-- Declaracion de estilos responsive -->
+        <!-- <link rel="stylesheet" href="./responsive/movile.css"   media="screen and (min-width: 400px"> -->
+        <!-- <link rel="stylesheet" href="./responsive/tablet.css"  media="screen and (min-width: 600px"> -->
+        <!-- <link rel="stylesheet" href="./responsive/desktop.css" media="screen and (min-width: 800px"> -->
+        <!-- Declaracion de espiritu de pagina y posicionamiento de servidores -->
+        <meta name="description" content="Bpo Change - Sarmiento - Chubut">
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+        <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+        <!-- Declaracion de titulo de pagina y pestaña -->
+        <title>Bpo Change ( Reseteo de contraseña )</title>
+        <!-- Declaracion de vinculos de audio y video -->
+        <!-- <audio src="./music/dev-bpo.mp3" autoplay></audio> -->
+        <!-- <video src="./videos/dev-bpo.mp4" controls width="640" height="320"></video> -->
+        <style></style>
+    </head>
+    <body>
+        <div class="loguin">
+            <div class="form-container">
+                <img src="../assets/logosCliente/logoCliente.png" alt="logo" class="logo">
+                
+                <h4 class="CompanyName">BPO CHANGE</h4>
+                <h3 class="CompanyProd"></h3>
+                <h1 class="title">Actualiza tu contraseña y sigue disfrutando de nuestra comunidad</h1>
+                <!-- <p class="subtitle">Registrate para acceder a nuestros servicios</p> -->
+                
+                <form action="/" class="form">
+                    <label for="password" class="label">Contraseña (6-12 digitos, 1 Mayuscula, 1 Numero y almenos 1 Caracter)</label>
+                    <input type="password" id="logPasswordNP" placeholder="*********" class="input input-password"> 
+
+                    <label for="password" class="label">Repetir Contraseña Ingresada</label>
+                    <input type="password" id="logPasswordNPChk" placeholder="*********" class="input input-password"> 
+
+                    <div>
+                        <input type="checkbox" id="chkShowPassword" onclick="showPasswordNPass()">
+                        <label for="chkShowPassword">Mostrar Contraseña</label>
+                    </div>
+                    <div class="form-container-button">
+                        <input type="button" value="ACEPTAR" class="primary-button login-button" id="btnFormOk" onclick="showMsg('ok')">
+                        <input type="button" value="CANCELAR" class="secundary-button login-button" id="btnFormCancel" onclick="location.href='../index.html'"> 
+                        <input type="button"  value="LIMPIAR" class="secundary-button login-button" id="btnFormReset" onclick="showMsg('reset')">
+                    </div>
+                </form> 
+               
+            </div> 
+        </div>
+    </body>
+</html>

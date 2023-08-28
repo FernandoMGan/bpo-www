@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Declaracion de metas de compatibilidad -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Declaracion de archivo java script -->
+    <!-- <script src="../js/main.js"></script> -->
+    <!-- Declaracion de estilos generales -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/stylesLoguin.css">
+    <!-- <link rel="stylesheet" href="./css/fonts.css"> -->
+    <!-- Declaracion de estilos responsive -->
+    <!-- <link rel="stylesheet" href="./responsive/movile.css" media="screen and (min-width: 400px"> -->
+    <!-- <link rel="stylesheet" href="./responsive/tablet.css" media="screen and (min-width: 600px"> -->
+    <!-- <link rel="stylesheet" href="./responsive/desktop.css" media="screen and (min-width: 800px"> -->
+    <!-- Declaracion de espiritu de pagina y posicionamiento de servidores -->
+    <meta name="description" content="Bpo Change - Sarmiento - Chubut">
+    <meta name="robots" content="index,follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- Declaracion de titulo de pagina y pestaña -->
+    <title>Bpo Change ( Login de Usuario - Recordatorio de contraseña )</title>
+    <!-- Declaracion de vinculos de audio y video -->
+    <!-- <audio src="./music/dev-bpo.mp3" autoplay></audio> -->
+    <!-- <video src="./videos/dev-bpo.mp4" controls width="640" height="320"></video> -->
+</head>
+<header class="navBarCnt">
+    <section id="Initial"></section>
+</header>
+<main>
+    <style>
+        #cntd-ppal {
+            width: 350px;
+        }
+    </style>
+    <container>
+        <form class="formLoguin" action="" method="post">
+            <center>
+                <img src="../assets/logosCliente/logoCliente.png" alt="logo" class="logo" height="75" width="75">
+            </center>
+
+            <!-- <h1 class="title">Bpo Change</h1> -->
+            <h2 class="title">Recordatorio de acceso a tu cuenta</h2>
+            <h3 class="subtitle">Si el corrego que has ingresado forma parte de nuestros registros, pronto recibiras un
+                enlace con el cual podra asignar una nueva contraseña.</h3>
+            <h3 class="subtitleLess">Verifique por favor su bandeja de entrada o de spam.</h2>
+            </h3>
+            <div><span>
+                    <h4 id="flagReenvio">
+                        <center></center>
+                    </h4>
+                </span></div>
+            <div>
+                <center><img id="loginBtnImg" src="../assets/forms/email.svg" alt="email"></center>
+            </div>
+            <span><br></span>
+
+            <div class="formLoguinButton">
+                <input type="button" value="LOGUIN" class="primary-button login-button" id="btnFormOk"
+                    onclick="location.href='./log-in.html'">
+                <input type="button" value="RE-ENVIAR" class="secundary-button login-button" id="btnFormResendPass"
+                    onclick="ShowPassLogRecReenv()">
+                <input type="button" value="CANCELAR" class="secundary-button login-button" id="btnFormCancel"
+                    onclick="location.href='../index.html'">
+            </div>
+        </form>
+        <script src="../js/main.js"></script>
+    </container>
+</main>
+<script>
+    //  Reevio de email para recuperacion de contraseña
+    function ShowPassLogRecReenv() {
+        //    alert('Funcion Cach ShowPassLogRecReenv');
+        document.getElementById("flagReenvio").innerText = "El email ha sido re-enviado, por favor verifique su bandeja de correo.";
+        document.getElementById("flagReenvio").style.color = "red";
+    };
+
+</script>
+</body>
+<!-- <footer>
+    <div id="BarFooter"></div> 
+</footer> -->
+
+</html>

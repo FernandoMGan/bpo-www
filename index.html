@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Definicion de Metadatos -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Declaracion de estilos generales -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/styles-index.css">
+    <!-- Vinculos a Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Vinculos a Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <!-- Referencias de la pagina
+         Desarrollador       : Fernando Martin Gan
+         Datos de Contacto   : Email : fmgsch@gmail.com , Tel 0297-5213076 -->
+    <title>Bpo Change - Fernando Martin Gan</title>
+
+
+    <!-- …or create a new repository on the command line
+    echo "# bpo-www" >> README.md
+    git init
+    git add README.md
+    git commit -m "first commit"
+    git branch -M main
+    git remote add origin https://github.com/FernandoMGan/bpo-www.git
+    git push -u origin main
+
+    …or push an existing repository from the command line
+    git remote add origin https://github.com/FernandoMGan/bpo-www.git
+    git branch -M main
+    git push -u origin main -->
+
+
+    <style>
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-info navbar-light rounded">
+        <a class="navbar-brand" href="#Company">
+            <img id="logo-cliente" src="./assets/logosCliente/logoCliente.png" alt="Logo Empresa" height="20" width="30"
+                class="text-center">
+        </a>
+        <div class="nav-item to-ntbk"><strong>Bpo Change - Fernando Martin Gan</strong></div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav d-flex align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="#Home">
+                        <img id="logo-home" src="./assets/buttons/wp/butHome.png" alt="wp buton home" height="20"
+                            width="30">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./portafolio/portafolio.html"><strong>Portafolio</strong></a>
+                </li>
+                <li class="nav-item dropdown dropdown-submenu">
+                    <a class="nav-link dropdown-toggle" href="#Certifications" id="navbarDropdown2" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <strong>Certificaciones</strong>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        <li><a class="dropdown-item fw-bold disabled" href="#Certificaciones">Mis Certificaciones</a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item fw-bold" href="#">Habilidades Blandas</a></li>
+                        <li><a class="dropdown-item fw-bold" href="#">Tecnologia</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item fw-bold" href="#">Otras Certificaciones</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown dropdown-submenu divider-right">
+                    <a class="nav-link dropdown-toggle" href="#Services" id="submnuServicios" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <strong>Servicios</strong>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="submnuServicios">
+                        <li><a class="dropdown-item fw-bold disabled" href="#">Mis Servicios</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item fw-bold" href="#">API Bpo</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item fw-bold" href="./pages/log-sop-ticket.html">Soporte</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item fw-bold" href="#">Otros Servicios</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item divider-right">
+                    <a class="nav-link" href="#">
+                        <img id="logo-cliente" src="./assets/buttons/wp/butPointOnMap.png" alt="wp buton point on map"
+                            height="20">
+                    </a>
+                </li>
+                <li class="nav-item dropdown dropdown-submenu divider-right">
+                    <a class="nav-link dropdown-toggle" href="#Settings" id="submnuSettings" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img id="logo-settings" src="./assets/buttons/wp/butSettings.png" alt="wp buton setings"
+                            height="20">
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="submnuSettings">
+                        <li><a class="dropdown-item fw-bold disabled" href="#">Mis Preferencias</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item fw-bold disabled" href="#">Seleccion de Idioma</a></li>
+                        <li><a class="dropdown-item fw-bold" href="#">Español</a></li>
+                        <li><a class="dropdown-item fw-bold disabled" href="#">Ingles</a></li>
+                        <!-- <li class="dropdown-divider"></li> -->
+                        <li><a class="dropdown-item fw-bold disabled" href="#">Solicitar Localizacion</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown dropdown-submenu divider-right">
+                    <a class="nav-link dropdown-toggle" href="#UserLogOff" id="submnuLogOff" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img id="logo-log-off" src="./assets/buttons/wp/butLogOff.png" alt="wp buton log off"
+                            height="20" width="30">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item fw-bold disabled" href="#">Loguin de Usuario Inactivo</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item fw-bold" href="./pages/log-in.html">Iniciar Sesion</a></li>
+                    </ul>
+                </li>
+                <div class="nav-item">
+                    <li class="nav-item"><a class="nav-link fw-bold" href="#"><strong>Anonimo</strong></a></li>
+                </div>
+                <li class="nav-item dropdown dropdown-submenu divider-right to-lost">
+                    <a class="nav-link dropdown-toggle" href="#UserLogIn" id="submnuLogIn" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img id="logo-log-off" src="./assets/buttons/wp/butLogIn.png" alt="wp buton log off" height="20"
+                            width="30">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item fw-bold disabled" href="#">Loguin de Usuario Activo</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item fw-bold" href="#">Mi Perfil</a></li>
+                        <li><a class="dropdown-item fw-bold" href="#">Mi Email</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item fw-bold" href="#">Cerrar Sesion</a></li>
+                    </ul>
+                </li>
+                <div class="nav-item to-lost">
+                    <li class="nav-item"><a class="nav-link fw-bold" href="#"><strong>User Name</strong></a></li>
+                </div>
+                <li class="nav-item">
+                    <form class="d-flex form-srch-insite" role="search">
+                        <input class="form-control me-2 fw-bold" id="inpt-serach" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn btn-outline-success fw-bold" id="btn-serach"
+                            type="submit"><strong>BUSCAR</strong></button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

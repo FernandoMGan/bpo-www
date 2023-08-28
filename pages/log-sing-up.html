@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Declaración de metadatos y posicionamiento de servidores -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="Fernando Martin Gan">
+    <meta name="description" content="Plantilla Navegador All de Fernando Martin Gan - Sarmiento - Chubut">
+    <meta name="keywords" content="Html, CSS, javascript, React, Rest, Go">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index,follow">
+    <!-- Declaración de archivo javascript (Preload) -->
+    <!-- Declaración de estilos ( Generales ) -->
+    <link rel="stylesheet" href="../css/styles.css" type="text/css">
+    <link rel="stylesheet" href="../css/styles-Log-sing-up.css" type="text/css">
+
+    <!-- Declaración de estilos ( Responsivos ) -->
+    <!-- <link rel="stylesheet" href="./responsive/movile.css"  media="screen and (min-width: 400px"> -->
+    <!-- <link rel="stylesheet" href="./responsive/tablet.css"  media="screen and (min-width: 600px"> -->
+    <!-- <link rel="stylesheet" href="./responsive/desktop.css" media="screen and (min-width: 800px"> -->
+
+    <!-- Declaración de tótulo de pógina y pestaóa -->
+    <title>Bpo Change - Plantilla ( Tst-In )</title>
+
+    <!-- Declaración de vónculos de audio y video -->
+    <!-- <audio src="./music/dev-bpo.mp3" autoplay></audio> -->
+    <!-- <video src="./videos/dev-bpo.mp4" controls width="640" height="320"></video> -->
+
+    <!-- Declaracion de Fuentes -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<!-- Estilos locales de la pagina -->
+<style>
+    #cntd-ppal{width: 350px;}
+</style>
+
+<body>
+    <div class="container text-center" id="cntd-ppal">
+        <center>
+            <img src="../assets/logosCliente/logoCliente.png" alt="logo" class="logo" height="75" width="75">
+        </center>
+
+        <!-- <h1 class="title">Bpo Change</h1> -->
+        <h3 class="title">Registro de Usuario</h3>
+        <h3 class="subtitle">Registrate Para Acceder a Nuestros Servicios</h3>
+
+        <label for="Nombres" class="label">Nombres</label>
+        <input type="text" id="logNombres" placeholder="Ingresa tus nombres" class="input">
+
+        <label for="Apellidos" class="label">Apellidos</label>
+        <input type="text" id="logApellidos" placeholder="Ingresa tus apellidos" class="input">
+
+        <label for="email" class="label text-center">Correo electrónico:</label><br>
+        <input type="email" class="input text-center" id="logEmail" placeholder="Ingresa un emial valido"
+            name="email"><br>
+        <br>
+
+        <div class="passwd">
+            <label for="password" class="label">Se recomienda una contraseña de (6 a 12 digitos, 1 Mayuscula, 1 Numero y
+                almenos 1 Caracter)</label>
+            <input type="password" id="logPassword" placeholder="*********" class="input input-password" maxlength="12">
+
+            <button class="btn btn-outline-secondary" type="button" id="frm-but-eye"
+                onclick="togglePasswd('logPassword', 'eye-passwd')">
+                <img id="eye-passwd" src="../assets/iconos/eye-slash.svg" alt="">
+            </button>
+            <!-- <img class="flg-passwd" id="flgPasswd" src="../assets/iconos/three-dots.svg" alt=""> -->
+            <i class="bi bi-three-dots" id="flgPasswd"></i>
+
+        </div>
+        <div class="passwd">
+            <label for="password" class="label">Repetir Contraseña Ingresada</label>
+            <input type="password" id="logPasswordChk" placeholder="*********" class="input input-password"
+                maxlength="12">
+
+            <!-- Caja de Contraseña - Confirmacion -->
+            <button class="btn btn-outline-secondary" type="button" id="frm-but-eye-chk"
+                onclick="togglePasswd('logPasswordChk', 'eye-passwd-chk')">
+                <img id="eye-passwd-chk" src="../assets/iconos/eye-slash.svg" alt="">
+            </button>
+            <!-- <img class="flg-passwd" id="flgPasswdChk" src="../assets/iconos/three-dots.svg" alt=""> -->
+            <i class="bi bi-three-dots" id="flgPasswdChk"></i>
+        </div>
+
+        <div class="formLoguinButton">
+            <input type="button" value="ACEPTAR" class="primary-button login-button" id="btnFormOk"
+                onclick="location.href='./log-sing-up-end.html'">
+            <input type="button" value="CANCELAR" class="secundary-button login-button" id="btnFormCancel"
+                onclick="location.href='../index.html'">
+            <input type="reset" value="LIMPIAR" class="secundary-button login-button" id="btnFormReset"
+                onclick="showMsg('reset')">
+        </div>
+        <script src="../js/main.js"></script>
+    </div>
+
+
+    <!-- exclamation-diamond.svg -->
+    <!-- Script Manuales -->
+    <script>
+        // Oculta los 2 password, Supone Reset Formulario
+        function SetPassLogHide(inputId, inputIdChk) { // - Valid 03-03-2023
+            var passwordInput = document.getElementById(inputId);
+            var passwordInputChk = document.getElementById(inputIdChk);
+
+            passwordInput.type = "password";
+            passwordInputChk = "password";
+        }
+        // Togle password en primer input box
+        function togglePasswd(inputId, eyeOpenId) {
+            var passwordInput = document.getElementById(inputId);
+            var eyeOpenIcon = document.getElementById(eyeOpenId);
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeOpenIcon.setAttribute("src", "../assets/iconos/eye.svg");
+                eyeOpenIcon.setAttribute("fill", "green");
+            } else {
+                passwordInput.type = 'password';
+                eyeOpenIcon.setAttribute("src", "../assets/iconos/eye-slash.svg");
+                eyeOpenIcon.setAttribute("fill", "red");
+            }
+        }
+        //  Validacion de contraseñas
+        const logPassword = document.getElementById('logPassword');
+        const logPasswordChk = document.getElementById('logPasswordChk');
+        const FlagPassword = document.getElementById('flgPasswd');
+        const FlagPasswordChk = document.getElementById('flgPasswdChk');
+
+        logPassword.addEventListener('input', function () {
+            const password = logPassword.value;
+            const passwordChk = logPasswordChk.value;
+
+            // Realizar la validación de la contraseña aquí
+            const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])(?!.*\s).{6,12}$/;
+            // Verificando Validacion
+            if (regex.test(password)) {
+                if (FlagPassword.classList.contains('bi-three-dots')) {
+                    FlagPassword.classList.replace('bi-three-dots', 'bi-check2');
+                }
+                if (FlagPassword.classList.contains('bi-exclamation-octagon')) {
+                    FlagPassword.classList.replace('bi-exclamation-octagon', 'bi-check2');
+                }
+                FlagPassword.style.color = "green";
+                FlagPassword.style.fontSize = "22px";
+            } else {
+                if (FlagPassword.classList.contains('bi-three-dots')) {
+                    FlagPassword.classList.replace('bi-three-dots', 'bi-exclamation-octagon');
+                }
+                if (FlagPassword.classList.contains('bi-check2')) {
+                    FlagPassword.classList.replace('bi-check2', 'bi-exclamation-octagon');
+                }
+                FlagPassword.style.color = "red";
+                FlagPassword.style.fontSize = "22px";
+            }
+            // Revisa la segunda seccion 
+            // Verificacion por repeticion
+            if (logPassword.value === logPasswordChk.value) {
+                if (FlagPasswordChk.classList.contains('bi-three-dots')) {
+                    FlagPasswordChk.classList.replace('bi-three-dots', 'bi-check2');
+                }
+                if (FlagPasswordChk.classList.contains('bi-exclamation-octagon')) {
+                    FlagPasswordChk.classList.replace('bi-exclamation-octagon', 'bi-check2');
+                }
+                FlagPasswordChk.style.color = "green";
+                FlagPasswordChk.style.fontSize = "22px";
+            } else {
+                if (FlagPasswordChk.classList.contains('bi-three-dots')) {
+                    FlagPasswordChk.classList.replace('bi-three-dots', 'bi-exclamation-octagon');
+                }
+                if (FlagPasswordChk.classList.contains('bi-check2')) {
+                    FlagPasswordChk.classList.replace('bi-check2', 'bi-exclamation-octagon');
+                }
+                FlagPasswordChk.style.color = "red";
+                FlagPasswordChk.style.fontSize = "22px";
+            }
+        });
+        logPasswordChk.addEventListener('input', function () {
+            const password = logPassword.value;
+            const passwordChk = logPasswordChk.value;
+
+            //Verificacion por repeticion
+            // console.log('Valor de 1 password :> ' + logPassword.value);
+            // console.log('Valor de 2 password :> ' + logPasswordChk.value);
+
+            if (logPassword.value === logPasswordChk.value) {
+                if (FlagPasswordChk.classList.contains('bi-three-dots')) {
+                    FlagPasswordChk.classList.replace('bi-three-dots', 'bi-check2');
+                }
+                if (FlagPasswordChk.classList.contains('bi-exclamation-octagon')) {
+                    FlagPasswordChk.classList.replace('bi-exclamation-octagon', 'bi-check2');
+                }
+                FlagPasswordChk.style.color = "green";
+                FlagPasswordChk.style.fontSize = "22px";
+            } else {
+                if (FlagPasswordChk.classList.contains('bi-three-dots')) {
+                    FlagPasswordChk.classList.replace('bi-three-dots', 'bi-exclamation-octagon');
+                }
+                if (FlagPasswordChk.classList.contains('bi-check2')) {
+                    FlagPasswordChk.classList.replace('bi-check2', 'bi-exclamation-octagon');
+                }
+                FlagPasswordChk.style.color = "red";
+                FlagPasswordChk.style.fontSize = "22px";
+            }
+        });
+
+    </script>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

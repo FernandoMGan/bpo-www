@@ -1,0 +1,511 @@
+/* -- Diseï¿½ado por Fernando Martin Gan - fmgsch@gmail.com */
+/* -- Developer Full Stack */
+/* -- 12-12-2022 */
+
+:root{ 
+    --white: #FFFFFF;
+    --black: #000000;
+    --very-light-pink: #C7C7C7;
+    --text-input-field: #F7F7F7;
+    --hospital-green: #ACD9B2;
+    --error-red: #f30808;
+    --sm: 1.4rem;
+    --md: 1.6rem;
+    --lg: 1.8rem;
+    --tit-company-font-name: 3.6rem;
+    --tit-company-font-prod: 2.8rem;
+
+    --buttonBorderRadius-brstd: 1rem;
+    /* --posMargLeftFloatMenuCuentaOff: -500px;
+    --posMargLeftFloatMenuCuentaOn: 625px; */
+
+    --tit-company-leg-name: "BPO CHANGE";
+    --app-background-color-fondo: rgba(193, 240, 197, 0.993);
+}
+
+/* -- -- Formato de controles Generales */
+*{
+    font-family: 'Quicksand', sans-serif;
+    box-sizing: border-box;
+    text-decoration: none;
+    /* color: rgb(10, 10, 10); */
+}
+html{
+    font-size: 62.5%;
+    background-color: var(--background-color-fondo);
+}
+body{
+    margin: 0;
+    padding: 0;
+}
+header{
+    width: 100%;
+    height: 4.1rem;
+    background-color: rgba(193, 240, 197, 0.993);
+}
+header navBarCnt{
+    background-color: rgba(193, 240, 197, 0.993); /* le da un color de fondo negro */
+}
+header navBar{
+    display: flex;
+    color: white; /* le da un color de fondo negro */
+}
+header navBar point{
+    // cursor: pointer;
+}
+.SiteOffMain{
+    background-color: rgba(193, 240, 197, 0.993);
+    height: 100%;
+}
+footer{
+    position: fixed;
+    border-radius: 7.5px; /* Redondeando el borde del footer */
+    left: 0.5%;  /*  la coloca en el borde izquierdo de la pantalla */
+    bottom: 5px;
+    height: 2.05rem;
+    width: 99%; /* ocupa todo el ancho de la pantalla */
+    background-color: var(--black);
+    display: flex; /* permite alinear los elementos de la barra de herramientas de forma horizontal */
+    align-items: center; /* centra los elementos de la barra de herramientas verticalmente */
+    justify-content: space-between; /* distribuye los elementos de la barra de herramientas de forma equilibrada */
+    padding: 0 2.0rem; /* aÃ±ade un margen de 20 pÃ­xeles a ambos lados de los elementos de la barra de herramientas */
+    color: white; /* le da un color a los enlaces */
+    z-index: 999; /* la coloca por encima de otros elementos */
+    font-weight: bold; /* Haciendo negrita la letra */
+}
+
+#toolbar {
+    position: fixed; /* hace que la barra de herramientas flote en la pantalla */
+    border-radius: 7.5px; /* Redondeando el borde de la barra */
+    left: 0.5%;  /*  la coloca en el borde izquierdo de la pantalla */
+    top: 5px; /* Posicion del tope de la barra de tareas*/
+    /* right: 0; la coloca en la parte inferior de la pantalla */
+    height: 3.0rem; /* le da una altura de 50 pÃ­xeles */
+    width: 99%; /* ocupa todo el ancho de la pantalla */
+    background-color: var(--black);
+    display: flex; /* permite alinear los elementos de la barra de herramientas de forma horizontal */
+    align-items: center; /* centra los elementos de la barra de herramientas verticalmente */
+    justify-content: space-between; /* distribuye los elementos de la barra de herramientas de forma equilibrada */
+    padding: 0 20px; /* aÃ±ade un margen de 20 pÃ­xeles a ambos lados de los elementos de la barra de herramientas */
+    color: white; /* le da un color a los enlaces */
+    z-index: 999; /* la coloca por encima de otros elementos */
+    font-weight: bold; /* Haciendo negrita la letra */
+}
+#toolbar a{
+    color: white;
+}
+#BarFooter{
+    background-color: #0000ff;
+    margin-bottom: 10px;
+    height: 12.0rem;
+
+}
+.form-container-button{
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+    border-width: 1px;   
+    border-radius: 10px; 
+    /* margin-left: 25vw;
+    margin-top: 5vh; */
+    height: 4.5rem;
+    width: 60.0rem;
+    padding: 1.5rem;
+    box-shadow: 0px 0px 0.5rem 0.5rem #0000ff;
+    justify-items: center;
+    gap: 5px;
+}
+.formLoguin{
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-width: 1px;   
+    border-radius: 10px; 
+    margin-left: 25vw;
+    margin-top: 5vh;
+    height: auto;
+    width: 30.0rem;
+    padding: 1.5rem;
+    box-shadow: 0px 0px 0.5rem 0.5rem #0000ff;
+}
+.label {
+    font-size: var(--sm);
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+.CompanyName {
+    font-size: var(--tit-company-name);
+    margin-bottom: 1.6rem;
+    text-align: center;
+}
+.CompanyProd {
+    font-size: var(--tit-company-prod);
+    margin-bottom: 1.4rem;
+    text-align: center;
+}
+.title {
+    font-size: var(--lg);
+    margin-bottom: 1.2rem;
+    text-align: center;
+}
+.subtitle {
+    color: var(--tit-company-font-prod);
+    font-size: var(--md);
+    font-weight: 300;
+    margin-top: 0;
+    margin-bottom: 3.2rem;
+    text-align: center;
+}
+.subtitleLess {
+    color: var(--tit-company-font-prod);
+    font-size: var(--sm);
+    font-weight: 300;
+    margin-top: 0;
+    margin-bottom: 3.2rem;
+    text-align: center;
+}
+.input {
+    background-color: var(--text-input-field);
+    border: none;
+    border-radius: var(--buttonBorderRadius-brstd);
+    height: 3.0rem;
+    font-size: var(--md);
+    padding: 0.6rem;
+    margin-bottom: 1.4rem;
+}
+.chkBoxs{
+    margin-top: 1.0rem;
+} 
+.ChkBoxsdiv{
+    display: inline-flexbox;
+}
+.formLoguinButton{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    justify-items: center;
+    padding-top: 1.0rem;
+    gap: 0.5rem;
+}
+.primary-button {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--hospital-green);
+    border-radius: var(--buttonBorderRadius-brstd);
+    border: none;
+    color: var(--white);
+    width: 100%;
+    cursor: pointer;
+    font-size: var(--md);
+    font-weight: bold;
+    height: 4.0rem;
+}
+.secundary-button{
+    display: flex;
+    flex-direction: row;
+    background-color: var(--very-light-pink);
+    border-radius: var(--buttonBorderRadius-brstd);
+    border: none;
+    color: var(--white);
+    width: 100%;
+    cursor: pointer;
+    font-size: var(--md);
+    font-weight: bold;
+    height: 4.0rem;
+}
+.formCabT5{
+    display: inline;
+    border-style: solid;
+    border-radius: 2.5px;
+    border-width: 1px;
+    border-color: blue;
+    flex-direction: column;
+    margin: 0 1rem 0 1rem;
+}
+.formCabT5Item{
+    margin-left: 300px;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+}
+#btnFormTicketOk, #btnFormTicketReset{
+    height: 30px;
+}
+.formTicketCns{
+}
+.mnuBarFloatIdioma{
+    display: flex;
+    background-color: var(--app-background-color-fondo);
+    border-color: var(--black);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 15px;
+    height: auto;
+    width: 20rem;
+}
+.desktop-menu {
+    background-color: var(--app-background-color-fondo);
+    width: 125px;
+    height: auto;
+    border: 1px solid blue;
+    border-radius: 6px;
+    padding: 1.4rem 1.4rem 0 1.4rem;
+}
+.desktop-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.desktop-menu ul li {
+    text-align: start;
+}
+.desktop-menu ul li:nth-child(1), .desktop-menu ul li:nth-child(2) {
+    font-weight: bold;
+}
+.desktop-menu ul li:last-child {
+    padding-top: 1.4rem;
+    border-top: 1px solid blue;
+}
+.desktop-menu ul li:last-child a {
+    color: var(--black);
+    font-size: var(--sm);
+}
+.desktop-menu ul li a {
+    color: var(--back);
+    text-decoration: none;
+    margin-bottom: 1.0rem;
+    display: inline-block;
+}
+#mnuFloatIdioma, #mnuFloatIdiomaApp{
+    position: fixed;
+    z-index: -1;
+    margin-left: -5000px;
+    top:40px;
+} 
+#mnuFloatCuenta, #mnuFloatCuentaApp{
+    background-color: var(--app-background-color-fondo);
+    position: fixed;
+    z-index: -1;
+    margin-left:-5000px;
+    top:40px;
+} 
+#mnuFloatModulos, #mnuFloatModulosApp{
+    background-color: var(--app-background-color-fondo);
+    position: fixed;
+    z-index: -1;
+    margin-left:-5000px;
+    top:40px;
+} 
+#home-left-aside {
+    background-color: aqua;
+}
+#home-rigth-aside {
+    background-color:brown
+}
+.main .main-aside-left .main-aside-right{
+    display: inline-block;
+}
+main .main-aside{
+    display: flex;
+    flex-direction: row;
+}
+.main-aside-left{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--app-background-color-fondo);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.5rem;
+    margin-top: 0px;
+    height: 92vh;
+    width: 29.5%;
+}
+.main-aside-right{
+    display: flex;
+    background-color: var(--app-background-color-fondo);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    margin-top: 0px;
+    left: 30.5%;
+    height: 88vh;
+    width: 88.5rem;
+    position: fixed; /* hace que la barra de herramientas flote en la pantalla */
+    z-index: 600;
+    /* align-items: center; */
+    justify-content: center;
+}
+.main-aside-left-Content {
+    display: block;
+}
+#txtDeveloper, #txtSpiryt{
+    align-items: center;
+    justify-content: center;
+    padding: 15
+    px auto;
+}
+.main-aside-right-portafolio{
+    display: flex;
+    background-color: red
+    /* var(--app-background-color-fondo); */
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    margin-top: 0px;
+    left: 30.5%;
+    height: 88vh;
+    width: 88.5rem;
+    position: fixed; /* hace que la barra de herramientas flote en la pantalla */
+    z-index: 500;
+}
+/* zona contenedores empresa*/
+.frm-cont-4 {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: padding: 0px 0.5rem 0px;
+    /* background-color: blueviolet; */
+    left: 20rem;
+    top: 0rem;
+}
+.frm-cont-4 img{
+    border: 1px solid blue;
+    border-radius: 10px;
+}        
+.frm-cont-4-row {
+    display: flex;
+    /* background-color: chartreuse; */
+    width: 100%;
+}
+
+.frm-cont-4-col{
+    width: calc(25% - 1rem);
+    margin-left: 1rem;
+}
+
+.frm-cont-4-row{
+    margin-left: -20.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}        
+.frm-cont-4-row:first-child{
+    padding-top: 0.25rem;
+}        
+.frm-cont-4-row:last-child{
+}        
+.img-caption {
+    font-size: 0.25rem;
+    text-align: center;
+}
+
+/* Ocultando elementos aun sin desarrollo */
+#id-desarrollo, #id-eventos, #main-aside-right-desarrollo, #main-aside-right-certificaciones, #main-aside-right-eventos {
+    visibility:hidden;
+}
+
+.frm-but-float-hrz{
+    /* background-color: red; */
+    display: flex;
+    flex-direction: row;
+    margin-top: 1.5rem;
+    width: 0rem;
+    /* top: 10rem; */
+}
+.but-float-ind-agnd{
+    border: 1px solid blue;
+    border-radius: 10px;
+    padding: 0.25rem 1rem;
+    transform: rotate(-270deg);
+    margin-top: 4rem;
+    margin-bottom: 1.75rem;
+    width: 7.5rem;
+    background-color: white;
+    font-size: larger;
+    font-weight: 500;
+}
+/* zona portafolio */
+.frm-porf-top{
+    background-color: chocolate;
+}
+.frm-porf-middle{
+    background-color:rgb(238, 134, 134);
+}
+.frm-porf-bottom{
+    background-color: rgb(200, 238, 30);
+}
+#frm-porf-top{
+    background-color: #f30808;
+    height: 10rem;
+}
+#frm-porf-middle{
+    background-color: #f30808;
+    height: 10rem;
+}
+#frm-porf-bottom{
+    background-color: #f30808;
+    height: 10rem;
+}
+.main-aside-right{
+    /* display: none; */
+    visibility: visible;
+}
+/* , #main-aside-right-Portafolio, #main-aside-right-Desarrollo */
+.main-aside-right-Empresa, #id-main-aside-right-Empresa{
+    display: block;
+    z-index: 991;
+}
+#id-but-bottom-cnt{
+    position:fixed;
+    /* background-color:black; */
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    direction: row;
+    top: 93.2vh;
+    left: 30.5%;
+    height: 30px;
+    width: 88.5rem;
+}
+.id-but-bottom{ 
+    border: 1px solid black;
+    border-radius: 10px;
+    font-weight:bold ;
+    top: 3.5px;
+    left: 0.5rem;
+    height: 2rem;
+    width: 10rem;
+    position: relative; /* hace que la barra de herramientas flote en la pantalla */
+    padding: 0.3rem;
+    z-index: 600;
+    gap: 5px;
+    text-align: center;
+    justify-content: center;
+}
+#frm-ind-agnd-01{
+    background-color:#ff0000;
+}
+#frm-ind-agnd-03, #frm-ind-agnd-05{
+    visibility: hidden;
+}
+#frm-ind-agnd-02, #frm-ind-agnd-03, #frm-ind-agnd-04, #frm-ind-agnd-05, #frm-ind-agnd-06{
+    margin-left: 5px;
+    padding: 0px 10px;
+}
+
+/* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+
+/* -- -- Formato de controles con identificador */
+/* -- -- Formato de controles respnsive */
+/* -- Responsive para celulares hasta 400px */
+@media (min-width:400px){
+}
+
+/* -- Responsive para tablets hasta 600px */
+@media (min-width:600px){
+}
+
+/* -- Responsive para desktop mayores 800px */
+@media (min-width:800px){
+}

@@ -1,0 +1,224 @@
+:root {
+    --white: #FFFFFF;
+    --black: #000000;
+    --very-light-pink: #C7C7C7;
+    --text-input-field: #efd0b1;
+    --hospital-green: #ACD9B2;
+    --error-red: #f30808;
+    --sm: 1.2rem;
+    --md: 2.0rem;
+    --lg: 3.6rem;
+
+    --buttonBorderRadius-brstd: 1rem;
+
+    --tit-company-leg-name: "BPO CHANGE";
+    --app-background-color-fondo: rgba(193, 240, 197, 0.993);
+}
+
+* {
+    font-family: 'Quicksand', sans-serif;
+}
+
+html {
+    font-size: 62.5%;
+    background-color: var(--background-color-fondo);
+}
+
+body {
+    background-color: #F5F5F5;
+}
+
+.container {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0px 0px 0.5rem 0.5rem #5b5bef;
+    height: auto;
+    width: 35rem;
+    margin-top: 2rem;
+    padding: 20px;
+}
+
+.container img {
+    border-radius: 1rem;
+}
+
+.ley-emp,
+.ley-div,
+.ley-prod,
+.ley-sprod,
+.ley-label,
+.ley-label-sujer {
+    text-align: center;
+}
+
+.ley-emp {
+    font-size: var(--lg);
+    font-weight: bold;
+}
+
+.ley-div {
+    color: var(--very-light-pink);
+    font-size: var(--md);
+    font-weight: bold;
+}
+
+.ley-prod {
+    font-size: var(--sm);
+    font-weight: bold;
+}
+
+.ley-sprod {}
+
+.ley-label {}
+
+.ley-label-sujer {}
+
+.input-txt,
+input[type="text"] {
+    background-color: var(--text-input-field);
+    border: none;
+    border-radius: var(--buttonBorderRadius-brstd);
+    font-size: var(--md);
+    margin-bottom: 1.0rem;
+    margin-left: -2rem;
+    height: 3.0rem;
+    width: 88%;
+    padding: 0.6rem;
+}
+
+.input-pass,
+input[type="password"] {
+    background-color: var(--very-light-pink);
+    border: none;
+    border-radius: var(--buttonBorderRadius-brstd);
+    font-size: var(--md);
+    margin-bottom: 1.0rem;
+    margin-left: -2rem;
+    height: 3.0rem;
+    width: 88%;
+    padding: 0.6rem;
+}
+
+.input-pass:active,
+input[type="password"]:active {
+    border-color: blue;
+}
+
+#password,
+#username {
+    width: 90%;
+}
+
+#frm-but-eye,
+#frm-but-eye-chk {
+    position: absolute;
+    border-style: none;
+    align-items: center;
+    margin-left: -3.3rem;
+    margin-top: 0.2rem;
+}
+
+#flgPasswd,
+#flgPasswdChk,
+#flgPasswdChk {
+    /* font-size: 64px; */
+}
+
+.log-chk-box-first-line {
+    float: left;
+}
+
+.log-chk-box-second-line {
+    float: right;
+}
+
+.flg-passwd {
+    position: absolute;
+    border-style: none;
+    align-items: center;
+    margin-left: 0.5rem;
+    margin-top: 0.6rem;
+}
+
+.log-chk-box {
+    display: inline-flexbox;
+    align-items: center;
+    /* centra los elementos de la barra de herramientas verticalmente */
+    justify-content: space-between;
+    /* distribuye los elementos de la barra de herramientas de forma equilibrada */
+    font-size: var(--sm);
+    font-weight: bold;
+    margin-top: 1.0rem;
+}
+
+.chkBoxsLbl label {
+    align-items: center;
+    /* centra los elementos de la barra de herramientas verticalmente */
+    justify-content: space-between;
+    /* distribuye los elementos de la barra de herramientas de forma equilibrada */
+}
+
+#chkShowPassword,
+#chkRememPassword,
+#chkLogPassRecup,
+#chkRegister {
+    margin-top: 5px;
+}
+
+.btn-loguin {
+    margin-top: 10rem;
+    padding-top: 0rem;
+    gap: 0.75rem;
+}
+
+.btn-primary {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-secondary {
+    padding: 10px;
+    background-color: var(--very-light-pink);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button[type="submit"]:hover,
+.btn-primary[type="button"]:hover {
+    background-color: #3E8E41;
+}
+
+.button[type="reset"]:hover,
+.btn-secondary[type="button"]:hover,
+#btnFormReset:hover {
+    background-color: #838383;
+}
+
+#eye-passwd,
+#eye-close {
+    /* display: flex; */
+    font-size: 1.25rem;
+    /* ajusta el tamaño de la fuente para agrandar los ojos */
+    /* margin-left: 1rem; */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* asegura que los ojos ocupen todo el ancho del contenedor */
+}
+
+bi bi-eye-slash-fill,
+.bi bi-eye-fill {}
+
+.opc-pass {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+}

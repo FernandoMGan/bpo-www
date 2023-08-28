@@ -1,0 +1,2652 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test CRUD Metodo JS by Fernando Gan</title>
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="./css/bpo-bar-cmds.css">
+    <!-- Estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/5.3/assets/css/docs.css">
+    <!-- Iconos de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Agregar los enlaces a los archivos de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Biblioteca de JavaScript de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <a href="./json/paises.json" id="enlaceJson"></a> <!-- Cargar países desde JSON -->
+
+
+    <!-- or create a new repository on the command line
+    echo "# test-by-js-crud" >> README.md
+    git init
+    git add README.md
+    git commit -m "first commit"
+    git branch -M main
+    git remote add origin https://github.com/FernandoMGan/test-by-js-crud.git
+    git push -u origin main
+
+    …or push an existing repository from the command line
+    git remote add origin https://github.com/FernandoMGan/test-by-js-crud.git
+    git branch -M main
+    git push -u origin main -->
+
+    <!-- Estilos CSS en línea -->
+    <style>
+        /* Estilos del contenedor principal usando CSS Grid */
+        .wrapper {
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: [col] 1fr [col] 1fr [col] 1fr [col] 1fr [col] 1fr [col] 1fr 300px;
+            grid-template-rows: [row] auto [row] auto [row] auto [row] auto;
+            background-color: #fff;
+            color: #444;
+        }
+
+        /* Estilos Universales */
+        :root {
+            --brdColorTitulos: black;
+            --brdColorFondo: white;
+            --brdColorCajas: orange;
+            --brdColorIngresos: blue;
+            --brdColorLeyendas: green;
+            --brdColorLeyendasSuave: lightgreen;
+        }
+
+        .box {
+            border: 1px solid var(--brdColorCajas);
+            border-radius: 5px;
+            margin-top: 0.25em;
+            margin-left: 1em;
+            margin-right: 1em;
+
+        }
+
+        #idFrmCntdCabecera {
+            text-align: center;
+            width: calc(98%);
+        }
+
+        /* Estilos de la barra de menues */
+        #idfrmCntdBarMenu {
+            position: fixed;
+            top: 2.4em;
+        }
+
+        .frmCntdBarMenu {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: var(--brdColorLeyendasSuave);
+            font-size: small;
+            position: fixed;
+            height: 4em;
+            width: calc(98%);
+            top: 2.4em;
+            gap: 1px;
+            align-content: center;
+            margin-left: 1.2em;
+            margin-right: 1.2em;
+            z-index: 900;
+        }
+
+        /* Estilos de los elementos de la barra de menú */
+        .BarMenuIt {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4px 10px;
+        }
+
+        .BarMenuIt:hover {
+            cursor: pointer;
+            background-color: #7bbbe6;
+            /* Color del fondo del botón al hacer hover */
+        }
+
+        .BarMenuIt:active {
+            color: var(--brdColorFondo);
+            background-color: var(--brdColorLeyendas);
+            border: 1px solid var(--brdColorTitulos);
+            border-radius: 2.5px;
+            transform: scale(0.75);
+        }
+
+        /* Estilos de la barra del tarjetero */
+        .frmCntdRegistros {
+            display: flex;
+            flex-direction: row;
+            position: absolute;
+            top: 8em;
+            width: calc(98%);
+            padding-bottom: 3px;
+
+        }
+
+        .frmCntdBarSpnTabs {
+            display: flex;
+            flex-direction: row;
+            position: absolute;
+            left: 0.75em;
+            top: 5.5em;
+            width: calc(98%);
+
+            justify-content: space-around;
+            /* Distribuye los elementos en los extremos */
+            align-items: center;
+            /* Centra verticalmente */
+
+            margin: 2.5px;
+        }
+
+        .frm-ppal-ll {
+            margin-left: 2.5px;
+            margin-right: 2.5px;
+        }
+
+        .frm-ppal-trj-dl,
+        .frm-ppal-trj-aux,
+        .frm-contaco-trj-aux,
+        .frm-Contable-trj-aux,
+        .frm-Regional-trj-aux,
+        .frm-Actividad-trj-aux,
+        .frm-Marketing-trj-aux,
+        .frm-Ventas-trj-aux,
+        .frm-Notas-trj-aux,
+        .frm-Documentos-trj-aux,
+        .frm-Facturacion-trj-aux,
+        .frm-Historial-trj-aux {
+            margin-left: 0.25em;
+            margin-right: 0.25em;
+            width: calc(100% - 1em);
+        }
+
+        .box-trj-it {
+            margin-top: 2.5px;
+            margin-bottom: 3px;
+        }
+
+        .frmCntdBuscador {
+            position: absolute;
+            top: 5.5em;
+            width: calc(98%) !important;
+            padding: 0.25em
+        }
+
+        /* Estilos de la barra de las secciones */
+        .box>.frm-ppal-ll>.cmp-txt:first-child,
+        .box>.frm-ppal-trj-dl>.cmp-txt:first-child,
+        .box>.frm-contaco-trj-aux>.cmp-txt:first-child,
+        .box>.frm-Contable-trj-aux>.cmp-txt:first-child,
+        .box>.frm-Regional-trj-aux>.cmp-txt:first-child,
+        .box>.frm-Actividad-trj-aux>.cmp-txt:first-child,
+        .box>.frm-Marketing-trj-aux>.cmp-txt:first-child,
+        .box>.frm-Ventas-trj-aux>.cmp-txt:first-child,
+        .box>.frm-Notas-trj-aux>.cmp-txt:first-child,
+        .box>.frm-Documentos-trj-aux>.cmp-txt:first-child,
+        .box>.frm-Facturacion-trj-aux>.cmp-txt:first-child,
+        .box>.frm-Historial-trj-aux>.cmp-txt:first-child,
+        .box>.frmCntdBuscador>.cmp-txt:first-child,
+        .box>.frmCntdResultBsq>.cmp-txt:first-child,
+        .box>.frmCntdBuscador>.cmp-txt:first-child {
+
+            margin-top: 0.25em;
+        }
+
+        #idfrmCntdResultBsqIt>.cmp-txt:first-child,
+        #idfrmCntdResultBsqIt>.cmp-txt:first-child,
+        #idfrmCntdBuscador>.cmp-txt:first-child,
+        #idfrmCntdResultBsq>.cmp-txt:first-child {
+            margin-top: 0.25em;
+        }
+
+        .cmp-txt {
+            font-size: 1em;
+            border: 1px solid lightgreen;
+            border-radius: 0.25em;
+            text-align: center;
+            margin-left: 0.5em;
+            margin-right: 0.5em;
+        }
+
+        .cmp-txt-bsq {
+            font-size: 1em;
+            border: 1px solid lightgreen;
+            border-radius: 0.25em;
+            text-align: center;
+
+        }
+
+        .cmp-lbl {
+            font-size: 0.75em;
+            text-align: center;
+            margin-bottom: 0.75em;
+        }
+
+        .frmCntdRegistros .cmp-lbl {
+            /* Estilos para los hijos de .cmp-lbl dentro de .box.frm-ppal */
+            color: blue;
+            font-weight: 600;
+        }
+
+        .vp-none {
+            display: none !important;
+        }
+
+        .vp-hidden {
+            visibility: hidden !important;
+        }
+
+        /* Estilos de la barra del buscador */
+        .box>.CntdBsqOpcA,
+        .box>.CntdBsqOpcB,
+        .box>.CntdBsqOpcNexo,
+        .box>.CntdBsqOpcNexo>.CntdBsqOpcNexoAB,
+        .box>.CntBtnBsq,
+        .box>.CntdRsltBsqBD {
+            display: flex;
+            flex-direction: row;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-left: 0.50em;
+            margin-right: 0.50em;
+
+            padding: 1em 0.8em 0.8em 1em;
+            font-weight: 600;
+        }
+
+        .rd-btn-bsq {
+            margin-left: 2em;
+            margin-right: 1em;
+        }
+
+        #idfrmCntdResultBsq {
+            margin-left: 0.5em;
+            padding-bottom: 0.25em;
+        }
+
+        #idCntBtnBsqLimit {
+            display: flex;
+            left: 0.50em;
+
+        }
+
+        .CntdBsqOpcACampo,
+        .CntdBsqOpcBCampo {
+            display: flex;
+            flex-direction: column;
+            padding: 1em;
+            gap: 2px;
+            margin: 0.50em;
+            text-align: center;
+        }
+
+        .CntdBsqOpcAOperador,
+        .CntdBsqOpcBOperador {
+            display: flex;
+            flex-direction: column;
+            padding: 1em;
+            gap: 2px;
+            margin: 0.50em;
+        }
+
+        .CntdBsqOpcACondicion,
+        .CntdBsqOpcBCondicion {
+            display: flex;
+            flex-direction: column;
+            padding: 1em;
+            gap: 2px;
+            margin: 0.50em;
+        }
+
+        .CntdBsqOpcACondicionIt,
+        .CntdBsqOpcAOperador,
+        .CntdBsqOpcABuequedaIt,
+        .CntdBsqOpcBCondicionIt,
+        .CntdBsqOpcBOperador,
+        .CntdBsqOpcBBuequedaIt {
+            text-align: center;
+        }
+
+        /* Estilos de la barra del resultado de busquedas */
+        #idCntBtnBsq {
+            display: flex;
+            flex-direction: row;
+            padding: 1em;
+            gap: 1em;
+            /* margin: -10px 0.50em 0.50em 0.50em !important; top right bottom left */
+            margin-top: 3px !important;
+
+            align-items: center;
+            justify-content: center;
+            margin-left: 0.5em;
+            margin-right: 0.5em;
+
+            width: calc(100%);
+        }
+
+        .BsqLimit {
+            display: flex;
+            flex-direction: row;
+            width: calc(100%);
+        }
+
+        .CntBtnBsqLimit {
+            display: flex;
+            flex-direction: row;
+            width: calc(40%);
+        }
+
+        /* Efectos de los botones de busqueda en el formulario de accion */
+        .bpobtn-acc:hover {
+            cursor: pointer;
+            background-color: #7bbbe6;
+            /* Color del fondo del botón al hacer hover */
+        }
+
+        .bpobtn-acc:active {
+            color: var(--brdColorFondo);
+            background-color: var(--brdColorLeyendas);
+            border: 1px solid var(--brdColorTitulos);
+            border-radius: 2.5px;
+            transform: scale(0.75);
+        }
+
+        /* Efectos de la tabla cargada */
+        /* Estilos para la tabla */
+        .tblRsltBsq {
+            text-align: center;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .tblRsltBsq th {
+            border: 1px solid black;
+            /* Borde solo en las celdas de la cabecera */
+            padding: 8px;
+            background-color: lightgray;
+            /* Fondo de cabecera en gris */
+            font-weight: bold;
+            /* Títulos en negrita */
+        }
+
+        .tblRsltBsq td {
+            padding: 8px;
+        }
+
+        .tblRsltBsq tbody tr:nth-child(odd) {
+            background-color: lightgreen;
+            /* Fondo verde suave para filas pares */
+        }
+
+        .CntBtnBsqLimit {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 0.50em;
+        }
+
+        #idBsqRsltLimitCnt,
+        #idBsqRsltLimitTxtChk {
+            margin-left: 1.5em;
+        }
+
+        .LmpGrd {
+            margin-left: 5em;
+            margin-right: 5em;
+        }
+
+        /* Formato de carga de registro */
+        .box>.frm-test-pais {
+            display: flex;
+            flex-direction: row;
+            padding: 1em;
+            gap: 5em;
+        }
+
+        /* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+        @media (max-width: 1060px) {
+
+            /* Oculta el texto en los botones cuando el ancho de la pantalla sea menor a 1000px */
+            .BarMenuIt .BarMenuIt-txt {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box frmCntdCabecera" id="idFrmCntdCabecera">Testeando CRUD-Method JS - Devel: Fernando Martin
+        Gan-Contacto : fmgsch@gmail.com
+    </div>
+    <div class="box frmCntdBarMenu" id="idfrmCntdBarMenu">
+        <!-- <div class="BarMenuItLineDiv"></div> -->
+        <div class="BarMenuIt" id="idBarMenuItNuevo" onclick="buttonSwitch('idBarMenuItNuevo')">
+            <div class="BarMenuIt-ic"><i class="bi bi-file-earmark-plus"></i></div>
+            <div class="BarMenuIt-txt">Nuevo</div>
+        </div>
+        <div class="BarMenuIt vp-hidden" id="idBarMenuItModificacion" onclick="buttonSwitch('idBarMenuItModificacion')">
+            <div class="BarMenuIt-ic"><i class="bi bi-pencil"></i></div>
+            <div class="BarMenuIt-txt">Modificacion</div>
+        </div>
+        <div class="BarMenuIt vp-hidden" id="idBarMenuItGuardar" onclick="buttonSwitch('idBarMenuItGuardar')">
+            <div class="BarMenuIt-ic"><i class="bi bi-save2"></i></div>
+            <div class="BarMenuIt-txt">Guardar</div>
+        </div>
+
+        <!-- <div class="BarMenuItLineDiv"></div> -->
+        <div class="BarMenuIt vp-hidden" id="idBarMenuItCancelar" onclick="buttonSwitch('idBarMenuItCancelar')">
+            <div class="BarMenuIt-ic"><i class="bi bi-x-octagon"></i></div>
+            <div class="BarMenuIt-txt">Cancelar</div>
+        </div>
+        <div class="BarMenuIt vp-hidden" id="idBarMenuItEliminar" onclick="buttonSwitch('idBarMenuItEliminar')">
+            <div class="BarMenuIt-ic"><i class="bi bi-trash2"></i></div>
+            <div class="BarMenuIt-txt">Eliminar</div>
+        </div>
+        <!-- <div class="BarMenuItLineDiv"></div> -->
+        <div class="BarMenuIt" id="idBarMenuItBusqueda" onclick="buttonSwitch('idBarMenuItBusqueda')">
+            <div class="BarMenuIt-ic"><i class="bi bi-search"></i></div>
+            <div class="BarMenuIt-txt">Busqueda</div>
+        </div>
+        <!-- <div class="BarMenuItLineDiv"></div> -->
+        <div class="BarMenuIt vp-hidden" id="idBarMenuItPrimero" onclick="buttonSwitch('idBarMenuItPrimero')">
+            <div class="BarMenuIt-ic"><i class="bi bi-arrow-up-circle"></i></div>
+            <div class="BarMenuIt-txt">Primero</div>
+        </div>
+        <div class="BarMenuIt vp-hidden" id="idBarMenuItAnterior" onclick="buttonSwitch('idBarMenuItAnterior')">
+            <div class="BarMenuIt-ic"><i class="bi bi-arrow-left-circle"></i></div>
+            <div class="BarMenuIt-txt">Anterior</div>
+        </div>
+        <div class="BarMenuIt vp-hidden" id="idBarMenuItSiguiente" onclick="buttonSwitch('idBarMenuItSiguiente')">
+            <div class="BarMenuIt-ic"><i class="bi bi-arrow-right-circle"></i></div>
+            <div class="BarMenuIt-txt">Siguiente</div>
+        </div>
+        <div class="BarMenuIt vp-hidden" id="idBarMenuItUltimo" onclick="buttonSwitch('idBarMenuItUltimo')">
+            <div class="BarMenuIt-ic"><i class="bi bi-arrow-down-circle"></i></div>
+            <div class="BarMenuIt-txt">Ultimo</div>
+        </div>
+        <!-- <div class="BarMenuItLineDiv"></div> -->
+        <div class="BarMenuIt vp-hidden" id="idBarMenuItImportar" onclick="buttonSwitch('idBarMenuItImportar')">
+            <div class="BarMenuIt-ic"><i class="bi bi-database-down"></i></div>
+            <div class="BarMenuIt-txt">Importar</div>
+        </div>
+        <div class="BarMenuIt vp-hidden" id="idBarMenuItExportar" onclick="buttonSwitch('idBarMenuItExportar')">
+            <div class="BarMenuIt-ic"><i class="bi bi-database-up"></i></div>
+            <div class="BarMenuIt-txt">Exportar</div>
+        </div>
+        <!-- <div class="BarMenuItLineDiv"></div> -->
+        <div class="BarMenuIt vp-hidden" id="idBarMenuItPrint" onclick="buttonSwitch('idBarMenuItPrint')">
+            <div class="BarMenuIt-ic"><i class="bi bi-printer"></i></div>
+            <div class="BarMenuIt-txt">Print</div>
+        </div>
+        <div class="BarMenuIt vp-hidden" id="idBarMenuItPdf" onclick="buttonSwitch('idBarMenuItPdf')">
+            <div class="BarMenuIt-ic"><i class="bi bi-filetype-pdf"></i></div>
+            <div class="BarMenuIt-txt">Pdf</div>
+        </div>
+        <!-- <div class="BarMenuItLineDiv"></div> -->
+        <div class="BarMenuIt" id="idBarMenuItConfig" onclick="buttonSwitch('idBarMenuItConfig')">
+            <div class="BarMenuIt-ic"><i class="bi bi-gear"></i></div>
+            <div class="BarMenuIt-txt">Config</div>
+        </div>
+        <div class="BarMenuItLineDiv"></div>
+        <div class="BarMenuIt" id="idBarMenuItSalida" onclick="buttonSwitch('idBarMenuItSalida')">
+            <div class="BarMenuIt-ic"><i class="bi bi-door-open"></i></div>
+            <div class="BarMenuIt-txt">Salida</div>
+        </div>
+
+
+    </div>
+    </div>
+    <div class="box frmCntdBarSpnTabs vp-none" id="idFrmCntdSpnTabs">
+        <div class="box-trj-indice-nav" role="alert" aria-live="assertive" aria-atomic="true">
+            <i class="bi bi-arrow-left-circle"></i>
+        </div>
+
+        <div class="box-trj-it"><button type="button" class="btn btn-light btn-sm" id="id-btnfrm-Principal-trj-aux"
+                onclick="togglePanel('id-frm-ppal-trj-aux')">Principal</button></div>
+        <div class="box-trj-it"><button type="button" class="btn btn-light btn-sm" id="id-btnfrm-Contacto-trj-aux"
+                onclick="togglePanel('id-frm-contaco-trj-aux')">Contacto</button></div>
+        <div class="box-trj-it"><button type="button" class="btn btn-light btn-sm" id="id-btnfrm-Contable-trj-aux"
+                onclick="togglePanel('id-frm-Contable-trj-aux')">Contable</button></div>
+        <div class="box-trj-it"><button type="button" class="btn btn-light btn-sm" id="id-btnfrm-Regional-trj-aux"
+                onclick="togglePanel('id-frm-Regional-trj-aux')">Regional</button></div>
+        <div class="box-trj-it"><button type="button" class="btn btn-light btn-sm" id="id-btnfrm-Actividad-trj-aux"
+                onclick="togglePanel('id-frm-Actividad-trj-aux')">Actividad</button></div>
+        <div class="box-trj-it"><button type="button" class="btn btn-light btn-sm" id="id-btnfrm-Marketing-trj-aux"
+                onclick="togglePanel('id-frm-Marketing-trj-aux')">Marketing</button></div>
+        <div class="box-trj-it"><button type="button" class="btn btn-light btn-sm" id="id-btnfrm-Ventas-trj-aux"
+                onclick="togglePanel('id-frm-Ventas-trj-aux')">Ventas</button></div>
+        <div class="box-trj-it"><button type="button" class="btn btn-light btn-sm" id="id-btnfrm-Notas-trj-aux"
+                onclick="togglePanel('id-frm-Notas-trj-aux')">Notas</button></div>
+        <div class="box-trj-it"><button type="button" class="btn btn-light btn-sm" id="id-btnfrm-Documentos-trj-aux"
+                onclick="togglePanel('id-frm-Documentos-trj-aux')">Documentos</button></div>
+        <div class="box-trj-it"><button type="button" class="btn btn-light btn-sm" id="id-btnfrm-Facturacion-trj-aux"
+                onclick="togglePanel('id-frm-Facturacion-trj-aux')">Facturacion</button></div>
+        <div class="box-trj-it"><button type="button" class="btn btn-light btn-sm" id="id-btnfrm-Historial-trj-aux"
+                onclick="togglePanel('id-frm-Historial-trj-aux')">Historial</button></div>
+
+        <div class="box-trj-indice-nav" role="alert" aria-live="assertive" aria-atomic="true">
+            <i class="bi bi-arrow-right-circle"></i>
+        </div>
+    </div>
+    <div class="box frmCntdRegistros vp-none" id="idfrmCntdRegistros">
+        <div class="box frm-ppal-ll">
+            <div class="cmp-txt">1</div>
+            <div class="cmp-lbl">Identificacion</div>
+
+            <div class="cmp-txt">22.223.444</div>
+            <div class="cmp-lbl">DNI</div>
+
+            <div class="cmp-txt">20-22223444-7</div>
+            <div class="cmp-lbl">Cuit / Cuil</div>
+
+            <div class="cmp-txt">Perez, Juan Manuel</div>
+            <div class="cmp-lbl">Nombres</div>
+
+            <div class="cmp-txt">-- -- --</div>
+            <div class="cmp-lbl">Razon Comercial</div>
+
+            <div class="cmp-txt">+54 9297-3341</div>
+            <div class="cmp-lbl">Telefono</div>
+
+            <div class="cmp-txt">fmgsch@gmail.com</div>
+            <div class="cmp-lbl">Email</div>
+
+            <div class="cmp-txt">11/11/1971</div>
+            <div class="cmp-lbl">Fecha Alta</div>
+
+            <div class="cmp-txt">11/11/1975</div>
+            <div class="cmp-lbl">Fecha Ult Pedido</div>
+
+            <div class="cmp-txt">11/11/1980</div>
+            <div class="cmp-lbl">Fecha Ult Venta</div>
+        </div>
+        <div class="box frm-ppal-trj-dl vp-none" id="id-frm-ppal-trj-aux">
+            <div class="cmp-txt" id="">Informacion Principal del Registro</div>
+            <div class="cmp-lbl"></div>
+        </div>
+        <div class="box frm-contaco-trj-aux vp-none" id="id-frm-contaco-trj-aux">
+            <div class="cmp-txt" id="">Informacion del contaco</div>
+            <div class="cmp-lbl"></div>
+        </div>
+        <div class="box frm-Contable-trj-aux vp-none" id="id-frm-Contable-trj-aux">
+            <div class="cmp-txt" id="">Informacion Contable</div>
+            <div class="cmp-lbl"></div>
+        </div>
+        <div class="box frm-Regional-trj-aux vp-none" id="id-frm-Regional-trj-aux">
+            <div class="cmp-txt" id="">Informacion Regional</div>
+            <div class="cmp-lbl"></div>
+        </div>
+        <div class="box frm-Actividad-trj-aux vp-none" id="id-frm-Actividad-trj-aux">
+            <div class="cmp-txt" id="">Informacion Actividad o Intereses</div>
+            <div class="cmp-lbl"></div>
+        </div>
+        <div class="box frm-Marketing-trj-aux vp-none" id="id-frm-Marketing-trj-aux">
+            <div class="cmp-txt" id="">Informacion Marketing</div>
+            <div class="cmp-lbl"></div>
+        </div>
+        <div class="box frm-Ventas-trj-aux" id="id-frm-Ventas-trj-aux">
+            <div class="cmp-txt" id="">Informacion Ventas</div>
+            <div class="cmp-lbl"><br><br>
+                <h1>CARGANDO REGISTROS PAIS DENTRO DEL FORM DE CLIENTE PARA VERIFICAR FUNCIONAMIENTO</h1>
+            </div>
+
+            <DIV class="box frm-test-pais">
+                <div class="frm-test-pais" id="id-frm-test-pais-itid">
+                    <div class="cmp-lbl">Codigo Pais</div>
+                    <div class="cmp-txt" id="id-frm-test-pais-id"></div>
+                </div>
+                <div class="frm-test-pais" id="id-frm-test-itpais">
+                    <div class="cmp-lbl">Nombre del Pais</div>
+                    <div class="cmp-txt" id="id-frm-test-pais-pais"></div>
+                </div>
+                <div class="frm-test-pais" id="id-frm-test-itactivado">
+                    <div class="cmp-lbl">Esta Activo</div>
+                    <div class="cmp-txt" id="id-frm-test-pais-activado"></div>
+
+                </div>
+            </DIV>
+
+        </div>
+        <div class="box frm-Notas-trj-aux vp-none" id="id-frm-Notas-trj-aux">
+            <div class="cmp-txt" id="">Informacion Notas</div>
+            <div class="cmp-lbl"></div>
+        </div>
+        <div class="box frm-Documentos-trj-aux vp-none" id="id-frm-Documentos-trj-aux">
+            <div class="cmp-txt" id="">Informacion Documentos</div>
+            <div class="cmp-lbl"></div>
+        </div>
+        <div class="box frm-Facturacion-trj-aux vp-none" id="id-frm-Facturacion-trj-aux">
+            <div class="cmp-txt" id="">Informacion Facturacion</div>
+            <div class="cmp-lbl"></div>
+        </div>
+        <div class="box frm-Historial-trj-aux vp-none" id="id-frm-Historial-trj-aux">
+            <div class="cmp-txt" id="">Informacion Historial</div>
+            <div class="cmp-lbl"></div>
+        </div>
+    </div>
+    <div class="box frmCntdBuscador vp-none" id="idfrmCntdBuscador">
+        <div class="cmp-txt" id="idfrmCntdBuscadorIt">Buscador de registros</div>
+        <div class="cmp-lbl"></div>
+        <!-- Seccion A del buscador -->
+        <div class="box CntdBsqOpcA">
+            <br><br>
+            <div class="CntdBsqOpcACampo" id="CntdBsqOpcACampoIt">Campo
+                <select id="CntdBsqOpcACampoItValue">
+                    <option value="opBsqA048ID">ID</option>
+                    <option value="opBsqA048Pais" selected>Nombre</option>
+                    <option value="opBsqA048Estado">Estado</option>
+                </select>
+            </div>
+            <div class="CntdBsqOpcAOperador" id="CntdBsqOpcAOperadorIt">Operador
+                <select id="BsqOpcACmbxOperador">
+                    <option value="opBsqA01">Distinto de</option>
+                    <option value="opBsqA02">Igual a</option>
+                    <option value="opBsqA03">Igual o Menor Que</option>
+                    <option value="opBsqA04">Igual o Mayor Que</option>
+                    <option value="opBsqA05" selected>Que Contenga</option>
+                    <option value="opBsqA06">Que Empiece</option>
+                    <option value="opBsqA07">Que Termine</option>
+                </select>
+            </div>
+            <div class="CntdBsqOpcACondicion" id="CntdBsqOpcACondicionIt">Condición de Búsqueda (no distingue mayusculas
+                de minusculas)
+                <input type="text" class="cmp-txt" id="condicionA" name="condicion"
+                    placeholder="Ingrese aquí su condición de búsqueda">
+            </div>
+
+        </div>
+        <div class="box CntdBsqOpcNexo">
+            <div class="CntdBsqOpcNexoAB" id="idCntdBsqOpcNexoAB">
+                <div class="cmp-lbl rd-btn-bsq">
+                    <input type="checkbox" id="BsqOpcUnion" name="CntdBsqOpcNexoABIt" value="1"
+                        onclick="togglePanelBsqNxo(this.checked)">
+                </div>
+                <div class="cmp-lbl">CONECTA LAS 2 CONDICIONES DE BUSQUEDA CON .. </div>
+                <div class="cmp-lbl rd-btn-bsq">
+                    <input type="radio" id="optY" name="CntdBsqOpcNexoABIt" value="Y" checked>
+                    <label for="optY"> Y </label>
+                </div>
+                <div class="cmp-lbl rd-btn-bsq">O CON </div>
+                <div class="cmp-lbl rd-btn-bsq">
+                    <input type="radio" id="optO" name="CntdBsqOpcNexoABIt" value="O">
+                    <label for="optO">O</label>
+                </div>
+            </div>
+        </div>
+        <!-- Seccion B del buscador -->
+        <div class="box CntdBsqOpcB vp-none" id="idCntdBsqOpcB">
+            <br><br>
+            <div class="CntdBsqOpcBCampo" id="CntdBsqOpcBCampoIt">Campo
+                <select id="CntdBsqOpcBCampoItValue">
+                    <option value="opBsqA048ID">ID</option>
+                    <option value="opBsqA048Pais" selected>Nombre</option>
+                    <option value="opBsqA048Estado">Estado</option>
+                </select>
+            </div>
+            <div class="CntdBsqOpcBOperador" id="CntdBsqOpcBOperadorIt">Operador
+                <select id="BsqOpcBCmbxOperador">
+                    <option value="opBsqA01">Distinto de</option>
+                    <option value="opBsqA02">Igual a</option>
+                    <option value="opBsqA03">Igual o Menor Que</option>
+                    <option value="opBsqA04">Igual o Mayor Que</option>
+                    <option value="opBsqA05" selected>Que Contenga</option>
+                    <option value="opBsqA06">Que Empiece</option>
+                    <option value="opBsqA07">Que Termine</option>
+                </select>
+            </div>
+            <div class="CntdBsqOpcBCondicion" id="CntdBsqOpcBCondicionIt">Condición de Búsqueda (no distingue mayusculas
+                de minusculas)
+                <input type="text" class="cmp-txt" id="condicionB" name="condicion"
+                    placeholder="Ingrese aquí su condición de búsqueda">
+            </div>
+        </div>
+        <div class="BsqLimit">
+            <!-- botones de busqueda -->
+            <div class="box container mt-4 CntBtnBsq" id="idCntBtnBsq">
+                <button class="btn btn-light bpobtn-acc" onclick="buttonSwitch('idBtnSrchxFltr')">Buscar Seg
+                    Filtro</button>
+                <button class="btn btn-light bpobtn-acc" onclick="buttonSwitch('idBtnSrchx25')">Buscar 25</button>
+                <button class="btn btn-light bpobtn-acc" onclick="buttonSwitch('idBtnSrchx50')">Buscar 50</button>
+                <button class="btn btn-light bpobtn-acc" onclick="buttonSwitch('idBtnSrchx200')">Buscar 200</button>
+                <button class="btn btn-light bpobtn-acc LmpGrd" onclick="buttonSwitch('vidCleanGrid')">Limpiar
+                    Grilla</button>
+                <button class="btn btn-light bpobtn-acc" onclick="buttonSwitch('idBtnSrchxTodos')">Buscar Todos</button>
+            </div>
+            <!-- <div class="box CntBtnBsqLimit" id="idCntBtnBsqLimit">
+                <input type="checkbox" id="BsqRsltLimit" name="idChkBsqRsltLimit" value="1"
+                    onclick="togglePanelBsqNxo(this.checked)">Usa limite
+                <input type="text" class="cmp-txt" id="idCndBsq" name="idBsqRsltLimit" placeholder="50">
+            </div> -->
+            <div class="box CntBtnBsqLimit" id="idCntBtnBsqLimit">
+                <input type="checkbox" id="BsqRsltLimit" name="idChkBsqRsltLimit" value="1">
+                <label for="BsqRsltLimit" id="idBsqRsltLimitTxtChk">Usa limite</label>
+                <input type="number" class="cmp-txt" id="idBsqRsltLimitCnt" name="idBsqRsltLimit"
+                    placeholder="Ingrese Tope de Reg." min="0">
+            </div>
+
+        </div>
+        <div class="box frmCntdResultBsq vp-none" id="idfrmCntdResultBsq">
+            <div class="cmp-txt" id="idfrmCntdResultBsqIt">Resultados de las busquedas</div>
+            <div class="box CntdRsltBsqBD" id="contenedorTabla">
+                <table class="tblRsltBsq" id="idTblRsltBsq">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ID</th>
+                            <th>Pais</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->
+    <script>
+        function togglePanelBsqNxo(pParam) {
+            const pnlIdCntdBsqOpcB = document.getElementById('idCntdBsqOpcB');
+            if (pParam) {
+                pnlIdCntdBsqOpcB.classList.remove('vp-none'); // Hacer panel visible de la 2da condición de búsqueda
+            } else {
+                pnlIdCntdBsqOpcB.classList.add('vp-none'); // Hacer panel invisible de la 2da condición de búsqueda 
+            }
+        }
+
+        function togglePanel(panelId) {
+            // Array de IDs de paneles
+            let vaPaneles = [
+                'id-frm-Ventas-trj-aux',
+                'id-frm-ppal-trj-aux',
+                'id-frm-contaco-trj-aux',
+                'id-frm-Contable-trj-aux',
+                'id-frm-Regional-trj-aux',
+                'id-frm-Actividad-trj-aux',
+                'id-frm-Marketing-trj-aux',
+                'id-frm-Notas-trj-aux',
+                'id-frm-Documentos-trj-aux',
+                'id-frm-Facturacion-trj-aux',
+                'id-frm-Historial-trj-aux'
+            ];
+
+            // Recorremos el array de paneles
+            for (let i = 0; i < vaPaneles.length; i++) {
+                const panel = document.getElementById(vaPaneles[i]);
+                // console.log('Muestra el nombre del panel en el indice >: ' + document.getElementById(vaPaneles[i]));
+
+                // Si el panel no coincide con el panelId actual, ocultamos
+                if (panel && vaPaneles[i] !== panelId) {
+                    panel.classList.add('vp-none');
+                    // panel.classList.add('btn-trj-active');
+                }
+            }
+
+            // Mostramos u ocultamos el panel actual
+            const currentPanelDefault = document.getElementById(vaPaneles[0]);
+            const currentPanel = document.getElementById(panelId);
+            if (currentPanel) {
+                currentPanel.classList.toggle('vp-none');
+                if (currentPanel.classList.contains('vp-none')) {
+                    // console.log('Quitando clase vp-none de ' + panelId);
+                    currentPanelDefault.classList.remove('vp-none');
+                    // currentPanelDefault.classList.add('btn-trj-active');
+                } else {
+                    // console.log('Agregando clase vp-none a ' + panelId);
+                }
+            }
+        }
+        function buttonSwitch(option) {
+            // Tomando el id pasado por parကmetro desde el onclick
+            // alert('Antes de la toma de control');
+            const curButtonPress = document.getElementById(option);
+            const pnlFncBarSpnTabs = document.getElementById('idFrmCntdSpnTabs');
+            const pnlFncRegistros = document.getElementById('idfrmCntdRegistros');
+            const pnlFncBuscador = document.getElementById('idfrmCntdBuscador');
+            const pnlFncResultBsq = document.getElementById('idfrmCntdResultBsq');
+            const pnlIdCntdBsqOpcB = document.getElementById('idCntdBsqOpcB');
+            // alert('Despues de la toma de control');
+
+            // Tomando los valores de los botones
+            const curButtonNew = document.getElementById('idBarMenuItNuevo');
+            const curButtonModificacion = document.getElementById('idBarMenuItModificacion');
+            const curButtonGuardar = document.getElementById('idBarMenuItGuardar');
+            const curButtonCancelar = document.getElementById('idBarMenuItCancelar');
+            const curButtonEliminar = document.getElementById('idBarMenuItEliminar');
+            const curButtonBusqueda = document.getElementById('idBarMenuItBusqueda');
+            const curButtonPrimero = document.getElementById('idBarMenuItPrimero');
+            const curButtonAnterior = document.getElementById('idBarMenuItAnterior');
+            const curButtonSiguiente = document.getElementById('idBarMenuItSiguiente');
+            const curButtonUltimo = document.getElementById('idBarMenuItUltimo');
+            const curButtonImportar = document.getElementById('idBarMenuItImportar');
+            const curButtonExportar = document.getElementById('idBarMenuItExportar');
+            const curButtonPrint = document.getElementById('idBarMenuItPrint');
+            const curButtonPdf = document.getElementById('idBarMenuItPdf');
+            const curButtonConfig = document.getElementById('idBarMenuItConfig');
+            const curButtonSalida = document.getElementById('idBarMenuItSalida');
+
+            // Deshabilitando todos los botones de la barra de comandos
+            curButtonNew.classList.add('vp-hidden');
+            curButtonModificacion.classList.add('vp-hidden');
+            curButtonGuardar.classList.add('vp-hidden');
+            curButtonCancelar.classList.add('vp-hidden');
+            curButtonEliminar.classList.add('vp-hidden');
+            curButtonBusqueda.classList.add('vp-hidden');
+            curButtonPrimero.classList.add('vp-hidden');
+            curButtonAnterior.classList.add('vp-hidden');
+            curButtonSiguiente.classList.add('vp-hidden');
+            curButtonUltimo.classList.add('vp-hidden');
+            // curButtonImportar.classList.add('vp-hidden');
+            curButtonExportar.classList.add('vp-hidden');
+            curButtonPrint.classList.add('vp-hidden');
+            curButtonPdf.classList.add('vp-hidden');
+            curButtonConfig.classList.add('vp-hidden');
+            // curButtonSalida.classList.add('vp-hidden');
+
+            // Analizando la presion especifica y actuando en concecuencia
+            switch (option) {
+                case "idBarMenuItNuevo":
+                    pnlFncBarSpnTabs.classList.remove('vp-none');
+                    pnlFncRegistros.classList.remove('vp-none');
+                    pnlFncBuscador.classList.add('vp-none');
+
+
+                    curButtonGuardar.classList.remove('vp-hidden');
+                    curButtonCancelar.classList.remove('vp-hidden');
+                    curButtonImportar.classList.add('vp-hidden');
+                    curButtonSalida.classList.add('vp-hidden');
+
+                    RegAbmClean(); // Borrando plantilla abm
+
+                    console.log("Realizar Accion Nuevo");
+                    break;
+                case "idBarMenuItModificacion":
+                    pnlFncBarSpnTabs.classList.remove('vp-none');
+                    pnlFncRegistros.classList.remove('vp-none');
+                    pnlFncBuscador.classList.add('vp-none');
+
+                    curButtonGuardar.classList.remove('vp-hidden');
+                    curButtonCancelar.classList.remove('vp-hidden');
+
+                    ChargeFrameRslt();
+
+                    console.log("Realizar Accion Modificacion");
+                    break;
+                case "idBarMenuItGuardar":
+                    // pnlFncBarSpnTabs.classList.add('vp-none');
+                    // pnlFncRegistros.classList.add('vp-none');
+
+                    curButtonNew.classList.remove('vp-hidden');
+                    // curButtonModificacion.classList.remove('vp-hidden');
+                    // curButtonGuardar.classList.remove('vp-hidden');
+                    // curButtonCancelar.classList.remove('vp-hidden');
+                    // curButtonEliminar.classList.remove('vp-hidden');
+                    curButtonBusqueda.classList.remove('vp-hidden');
+                    // curButtonPrimero.classList.remove('vp-hidden');
+                    // curButtonAnterior.classList.remove('vp-hidden');
+                    // curButtonSiguiente.classList.remove('vp-hidden');
+                    // curButtonUltimo.classList.remove('vp-hidden');
+                    curButtonImportar.classList.remove('vp-hidden');
+                    curButtonExportar.classList.remove('vp-hidden');
+                    curButtonPrint.classList.remove('vp-hidden');
+                    curButtonPdf.classList.remove('vp-hidden');
+                    curButtonConfig.classList.remove('vp-hidden');
+                    curButtonSalida.classList.remove('vp-hidden');
+
+                    console.log("Realizar Accion Guardar");
+                    break;
+                case "idBarMenuItCancelar":
+                    pnlFncBarSpnTabs.classList.add('vp-none');
+                    pnlFncRegistros.classList.add('vp-none');
+                    pnlFncBuscador.classList.add('vp-none');
+                    pnlFncResultBsq.classList.add('vp-none');
+
+                    RegAbmClean(); // Borrando plantilla abm
+
+                    curButtonNew.classList.remove('vp-hidden');
+                    // curButtonModificacion.classList.remove('vp-hidden');
+                    // curButtonGuardar.classList.remove('vp-hidden');
+                    // curButtonCancelar.classList.remove('vp-hidden');
+                    // curButtonEliminar.classList.remove('vp-hidden');
+                    curButtonBusqueda.classList.remove('vp-hidden');
+                    // curButtonPrimero.classList.remove('vp-hidden');
+                    // curButtonAnterior.classList.remove('vp-hidden');
+                    // curButtonSiguiente.classList.remove('vp-hidden');
+                    // curButtonUltimo.classList.remove('vp-hidden');
+                    // curButtonImportar.classList.remove('vp-hidden');
+                    // curButtonExportar.classList.remove('vp-hidden');
+                    // curButtonPrint.classList.remove('vp-hidden');
+                    // curButtonPdf.classList.remove('vp-hidden');
+                    curButtonConfig.classList.remove('vp-hidden');
+                    curButtonSalida.classList.remove('vp-hidden');
+
+                    console.log("Realizar Accion Cancelar");
+                    break;
+                case "idBarMenuItEliminar":
+
+                    console.log("Realizar Accion Eliminar");
+                    break;
+                case "idBarMenuItBusqueda":
+                    RsltBsqClean(); // Limpia la grilla
+
+                    pnlFncBarSpnTabs.classList.add('vp-none');
+                    pnlFncRegistros.classList.add('vp-none');
+                    pnlFncBuscador.classList.remove('vp-none');
+                    pnlIdCntdBsqOpcB.classList.add('vp-none');
+                    // pnlFncResultBsq.classList.add('vp-none');
+
+                    curButtonNew.classList.add('vp-hidden');
+                    curButtonModificacion.classList.add('vp-hidden');
+                    curButtonGuardar.classList.add('vp-hidden');
+                    curButtonCancelar.classList.remove('vp-hidden');
+                    curButtonEliminar.classList.add('vp-hidden');
+                    curButtonBusqueda.classList.add('vp-hidden');
+                    curButtonPrimero.classList.add('vp-hidden');
+                    curButtonAnterior.classList.add('vp-hidden');
+                    curButtonSiguiente.classList.add('vp-hidden');
+                    curButtonUltimo.classList.add('vp-hidden');
+                    // curButtonImportar.classList.add('vp-hidden');
+                    curButtonExportar.classList.add('vp-hidden');
+                    curButtonPrint.classList.add('vp-hidden');
+                    curButtonPdf.classList.add('vp-hidden');
+                    curButtonConfig.classList.add('vp-hidden');
+                    curButtonSalida.classList.add('vp-hidden');
+
+                    console.log("Realizar Accion Busqueda");
+                    break;
+                case "idBarMenuItPrimero":
+                    curButtonNew.classList.add('vp-hidden');
+                    curButtonNew.classList.remove('vp-hidden');
+                    curButtonModificacion.classList.remove('vp-hidden');
+                    curButtonEliminar.classList.remove('vp-hidden');
+                    curButtonPrimero.classList.remove('vp-hidden');
+                    curButtonAnterior.classList.remove('vp-hidden');
+                    curButtonSiguiente.classList.remove('vp-hidden');
+                    curButtonUltimo.classList.remove('vp-hidden');
+                    curButtonExportar.classList.remove('vp-hidden');
+                    curButtonPrint.classList.remove('vp-hidden');
+                    curButtonPdf.classList.remove('vp-hidden');
+                    curButtonSalida.classList.remove('vp-hidden');
+
+                    RsltRegNav(-999) // Ir al primer registro
+
+                    console.log("Realizar Accion Primero");
+                    break;
+                case "idBarMenuItAnterior":
+                    curButtonNew.classList.remove('vp-hidden');
+                    curButtonModificacion.classList.remove('vp-hidden');
+                    curButtonEliminar.classList.remove('vp-hidden');
+                    curButtonPrimero.classList.remove('vp-hidden');
+                    curButtonAnterior.classList.remove('vp-hidden');
+                    curButtonSiguiente.classList.remove('vp-hidden');
+                    curButtonUltimo.classList.remove('vp-hidden');
+                    curButtonExportar.classList.remove('vp-hidden');
+                    curButtonPrint.classList.remove('vp-hidden');
+                    curButtonPdf.classList.remove('vp-hidden');
+                    curButtonSalida.classList.remove('vp-hidden');
+
+                    RsltRegNav(-1) // Ir al registro anterior
+
+                    console.log("Realizar Accion Anterior");
+                    break;
+                case "idBarMenuItSiguiente":
+                    curButtonNew.classList.remove('vp-hidden');
+                    curButtonModificacion.classList.remove('vp-hidden');
+                    curButtonEliminar.classList.remove('vp-hidden');
+                    curButtonPrimero.classList.remove('vp-hidden');
+                    curButtonAnterior.classList.remove('vp-hidden');
+                    curButtonSiguiente.classList.remove('vp-hidden');
+                    curButtonUltimo.classList.remove('vp-hidden');
+                    curButtonExportar.classList.remove('vp-hidden');
+                    curButtonPrint.classList.remove('vp-hidden');
+                    curButtonPdf.classList.remove('vp-hidden');
+                    curButtonSalida.classList.remove('vp-hidden');
+
+                    RsltRegNav(+1) // Ir al registro siguiente
+
+                    console.log("Realizar Accion Siguiente");
+                    break;
+                case "idBarMenuItUltimo":
+                    curButtonNew.classList.remove('vp-hidden');
+                    curButtonModificacion.classList.remove('vp-hidden');
+                    curButtonEliminar.classList.remove('vp-hidden');
+                    curButtonPrimero.classList.remove('vp-hidden');
+                    curButtonAnterior.classList.remove('vp-hidden');
+                    curButtonSiguiente.classList.remove('vp-hidden');
+                    curButtonUltimo.classList.remove('vp-hidden');
+                    curButtonExportar.classList.remove('vp-hidden');
+                    curButtonPrint.classList.remove('vp-hidden');
+                    curButtonPdf.classList.remove('vp-hidden');
+                    curButtonSalida.classList.remove('vp-hidden');
+
+                    RsltRegNav(+999) // Ir al ultimo registro
+
+                    console.log("Realizar Accion Ultimo");
+                    break;
+                case "idBarMenuItImportar":
+
+                    console.log("Realizar Accion Importar");
+                    break;
+                case "idBarMenuItExportar":
+
+                    console.log("Realizar Accion Exportar");
+                    break;
+                case "idBarMenuItPrint":
+                    console.log("Realizar Accion Print");
+                    break;
+                case "idBarMenuItPdf":
+
+                    console.log("Realizar Accion Pdf");
+                    break;
+                case "idBarMenuItConfig":
+
+                    console.log("Realizar Accion Config");
+                    break;
+                case "idBarMenuItSalida":
+                    pnlFncBarSpnTabs.classList.add('vp-none');
+                    pnlFncRegistros.classList.add('vp-none');
+                    pnlFncBuscador.classList.add('vp-none');
+                    pnlFncResultBsq.classList.add('vp-none');
+
+                    curButtonNew.classList.remove('vp-hidden');
+                    // curButtonModificacion.classList.remove('vp-hidden');
+                    // curButtonGuardar.classList.remove('vp-hidden');
+                    // curButtonCancelar.classList.remove('vp-hidden');
+                    // curButtonEliminar.classList.remove('vp-hidden');
+                    curButtonBusqueda.classList.remove('vp-hidden');
+                    // curButtonPrimero.classList.remove('vp-hidden');
+                    // curButtonAnterior.classList.remove('vp-hidden');
+                    // curButtonSiguiente.classList.remove('vp-hidden');
+                    // curButtonUltimo.classList.remove('vp-hidden');
+                    // curButtonImportar.classList.remove('vp-hidden');
+                    // curButtonExportar.classList.remove('vp-hidden');
+                    // curButtonPrint.classList.remove('vp-hidden');
+                    // curButtonPdf.classList.remove('vp-hidden');
+                    curButtonConfig.classList.remove('vp-hidden');
+                    curButtonSalida.classList.remove('vp-hidden');
+
+                    window.location.href = "../portafolio.html";
+
+                    console.log("Realizar Accion Salida");
+                    break;
+                case "idBtnSrchxFltr":
+                    pnlFncResultBsq.classList.remove('vp-none');
+
+                    RsltBsqClean(); // Limpia la grilla
+                    cargarDatosDesdeJSONFltr(25)
+
+                    curButtonNew.classList.remove('vp-hidden');
+                    curButtonModificacion.classList.remove('vp-hidden');
+                    curButtonEliminar.classList.remove('vp-hidden');
+                    curButtonPrimero.classList.remove('vp-hidden');
+                    curButtonAnterior.classList.remove('vp-hidden');
+                    curButtonSiguiente.classList.remove('vp-hidden');
+                    curButtonUltimo.classList.remove('vp-hidden');
+                    curButtonExportar.classList.remove('vp-hidden');
+                    curButtonPrint.classList.remove('vp-hidden');
+                    curButtonPdf.classList.remove('vp-hidden');
+                    curButtonSalida.classList.remove('vp-hidden');
+
+                    console.log("Realizar Accion de busqueda x25");
+                    break;
+                case "idBtnSrchx25":
+                    pnlFncResultBsq.classList.remove('vp-none');
+
+                    // alert('Armado Query >: ' + RegBsqFltArmar());
+                    // alert('En A >: ' + RegBsqFltACnd());
+                    // alert('En B >: ' + RegBsqFltBCnd());
+
+                    RsltBsqClean(); // Limpia la grilla
+                    cargarDatosDesdeJSON(25, RegBsqFltArmar());
+
+                    curButtonNew.classList.remove('vp-hidden');
+                    curButtonModificacion.classList.remove('vp-hidden');
+                    curButtonEliminar.classList.remove('vp-hidden');
+                    curButtonPrimero.classList.remove('vp-hidden');
+                    curButtonAnterior.classList.remove('vp-hidden');
+                    curButtonSiguiente.classList.remove('vp-hidden');
+                    curButtonUltimo.classList.remove('vp-hidden');
+                    curButtonExportar.classList.remove('vp-hidden');
+                    curButtonPrint.classList.remove('vp-hidden');
+                    curButtonPdf.classList.remove('vp-hidden');
+                    curButtonSalida.classList.remove('vp-hidden');
+
+                    // alert('Bsq x 25'); CntdRsltBsqBD
+
+                    console.log("Realizar Accion de busqueda x25");
+                    break;
+                case "idBtnSrchx50":
+                    RsltBsqClean(); // Limpia la grilla
+                    pnlFncResultBsq.classList.remove('vp-none');
+
+                    cargarDatosDesdeJSON(50);
+
+                    curButtonNew.classList.remove('vp-hidden');
+                    curButtonModificacion.classList.remove('vp-hidden');
+                    curButtonEliminar.classList.remove('vp-hidden');
+                    curButtonPrimero.classList.remove('vp-hidden');
+                    curButtonAnterior.classList.remove('vp-hidden');
+                    curButtonSiguiente.classList.remove('vp-hidden');
+                    curButtonUltimo.classList.remove('vp-hidden');
+                    curButtonExportar.classList.remove('vp-hidden');
+                    curButtonPrint.classList.remove('vp-hidden');
+                    curButtonPdf.classList.remove('vp-hidden');
+                    curButtonSalida.classList.remove('vp-hidden');
+
+                    // alert('Bsq x 25'); CntdRsltBsqBD
+                    // alert('Bsq x 50');
+
+                    console.log("Realizar Accion de busqueda x50");
+                    break;
+                case "idBtnSrchx200":
+                    pnlFncResultBsq.classList.remove('vp-none');
+
+                    cargarDatosDesdeJSON(200);
+
+                    curButtonNew.classList.remove('vp-hidden');
+                    curButtonModificacion.classList.remove('vp-hidden');
+                    curButtonEliminar.classList.remove('vp-hidden');
+                    curButtonPrimero.classList.remove('vp-hidden');
+                    curButtonAnterior.classList.remove('vp-hidden');
+                    curButtonSiguiente.classList.remove('vp-hidden');
+                    curButtonUltimo.classList.remove('vp-hidden');
+                    curButtonExportar.classList.remove('vp-hidden');
+                    curButtonPrint.classList.remove('vp-hidden');
+                    curButtonPdf.classList.remove('vp-hidden');
+                    curButtonSalida.classList.remove('vp-hidden');
+
+                    // alert('Bsq x 25'); CntdRsltBsqBD
+                    // alert('Bsq x 200');
+
+                    console.log("Realizar Accion de busqueda x200");
+                    break;
+                case "vidCleanGrid":
+                    var tableBody = document.querySelector("#idTblRsltBsq tbody");
+                    tableBodyClean(tableBody); // Limpiar toda la tabla antes de modificarla
+
+                    console.log("Realizar Accion de busqueda x200");
+                    break;
+                case "idBtnSrchxTodos":
+                    pnlFncResultBsq.classList.remove('vp-none');
+
+                    cargarDatosDesdeJSON(0);
+
+                    curButtonNew.classList.remove('vp-hidden');
+                    curButtonModificacion.classList.remove('vp-hidden');
+                    curButtonEliminar.classList.remove('vp-hidden');
+                    curButtonPrimero.classList.remove('vp-hidden');
+                    curButtonAnterior.classList.remove('vp-hidden');
+                    curButtonSiguiente.classList.remove('vp-hidden');
+                    curButtonUltimo.classList.remove('vp-hidden');
+                    curButtonExportar.classList.remove('vp-hidden');
+                    curButtonPrint.classList.remove('vp-hidden');
+                    curButtonPdf.classList.remove('vp-hidden');
+                    curButtonSalida.classList.remove('vp-hidden');
+
+                    // alert('Bsq x 25'); CntdRsltBsqBD
+                    // alert('Bsq x Todos');
+
+
+
+                    console.log("Realizar Accion de busqueda Todos");
+                    break;
+                default:
+                    console.log("Accion no vကlida");
+            }
+        }
+
+        var cnsRegionalPaises = [
+            {
+                "IDPais": 1,
+                "Pais": "AFGANISTÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 2,
+                "Pais": "ALBANIA",
+                "Estado": false
+            },
+            {
+                "IDPais": 3,
+                "Pais": "ALEMANIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 4,
+                "Pais": "ANDORRA",
+                "Estado": true
+            },
+            {
+                "IDPais": 5,
+                "Pais": "ANGOLA",
+                "Estado": true
+            },
+            {
+                "IDPais": 6,
+                "Pais": "ANGUILLA",
+                "Estado": true
+            },
+            {
+                "IDPais": 7,
+                "Pais": "ANTÁRTIDA",
+                "Estado": true
+            },
+            {
+                "IDPais": 8,
+                "Pais": "ANTIGUA Y BARBUDA",
+                "Estado": true
+            },
+            {
+                "IDPais": 9,
+                "Pais": "ANTILLAS HOLANDESAS",
+                "Estado": true
+            },
+            {
+                "IDPais": 10,
+                "Pais": "ARABIA SAUDÍ",
+                "Estado": true
+            },
+            {
+                "IDPais": 11,
+                "Pais": "ARGELIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 12,
+                "Pais": "ARGENTINA",
+                "Estado": false
+            },
+            {
+                "IDPais": 13,
+                "Pais": "ARMENIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 14,
+                "Pais": "ARUBA",
+                "Estado": true
+            },
+            {
+                "IDPais": 15,
+                "Pais": "AUSTRALIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 16,
+                "Pais": "AUSTRIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 17,
+                "Pais": "AZERBAIYÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 18,
+                "Pais": "BAHAMAS",
+                "Estado": true
+            },
+            {
+                "IDPais": 19,
+                "Pais": "BAHREIN",
+                "Estado": true
+            },
+            {
+                "IDPais": 20,
+                "Pais": "BANGLADESH",
+                "Estado": true
+            },
+            {
+                "IDPais": 21,
+                "Pais": "BARBADOS",
+                "Estado": true
+            },
+            {
+                "IDPais": 22,
+                "Pais": "BÉLGICA",
+                "Estado": true
+            },
+            {
+                "IDPais": 23,
+                "Pais": "BELICE",
+                "Estado": true
+            },
+            {
+                "IDPais": 24,
+                "Pais": "BENIN",
+                "Estado": true
+            },
+            {
+                "IDPais": 25,
+                "Pais": "BERMUDAS",
+                "Estado": true
+            },
+            {
+                "IDPais": 26,
+                "Pais": "BIELORRUSIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 27,
+                "Pais": "BIRMANIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 28,
+                "Pais": "BOLIVIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 29,
+                "Pais": "BOSNIA Y HERZEGOVINA",
+                "Estado": true
+            },
+            {
+                "IDPais": 30,
+                "Pais": "BOTSWANA",
+                "Estado": true
+            },
+            {
+                "IDPais": 31,
+                "Pais": "BRASIL",
+                "Estado": true
+            },
+            {
+                "IDPais": 32,
+                "Pais": "BRASIL",
+                "Estado": false
+            },
+            {
+                "IDPais": 33,
+                "Pais": "BRUNEI",
+                "Estado": true
+            },
+            {
+                "IDPais": 34,
+                "Pais": "BULGARIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 35,
+                "Pais": "BURKINA FASO",
+                "Estado": true
+            },
+            {
+                "IDPais": 36,
+                "Pais": "BURUNDI",
+                "Estado": true
+            },
+            {
+                "IDPais": 37,
+                "Pais": "BUTÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 38,
+                "Pais": "CABO VERDE",
+                "Estado": true
+            },
+            {
+                "IDPais": 39,
+                "Pais": "CAMBOYA",
+                "Estado": true
+            },
+            {
+                "IDPais": 40,
+                "Pais": "CAMERÚN",
+                "Estado": true
+            },
+            {
+                "IDPais": 41,
+                "Pais": "CANADÁ",
+                "Estado": true
+            },
+            {
+                "IDPais": 42,
+                "Pais": "CHAD",
+                "Estado": true
+            },
+            {
+                "IDPais": 43,
+                "Pais": "CHILE",
+                "Estado": true
+            },
+            {
+                "IDPais": 44,
+                "Pais": "CHINA",
+                "Estado": true
+            },
+            {
+                "IDPais": 45,
+                "Pais": "CHINA (HONG KONG)",
+                "Estado": true
+            },
+            {
+                "IDPais": 46,
+                "Pais": "CHINA (MACAO)",
+                "Estado": true
+            },
+            {
+                "IDPais": 47,
+                "Pais": "CHIPRE",
+                "Estado": true
+            },
+            {
+                "IDPais": 48,
+                "Pais": "CIUDAD DEL VATICANO (SANTA SEDE)",
+                "Estado": true
+            },
+            {
+                "IDPais": 49,
+                "Pais": "COLOMBIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 50,
+                "Pais": "COMORES",
+                "Estado": true
+            },
+            {
+                "IDPais": 51,
+                "Pais": "CONGO",
+                "Estado": true
+            },
+            {
+                "IDPais": 52,
+                "Pais": "COREA",
+                "Estado": true
+            },
+            {
+                "IDPais": 53,
+                "Pais": "COREA DEL NORTE",
+                "Estado": true
+            },
+            {
+                "IDPais": 54,
+                "Pais": "COSTA DE MARFÍL",
+                "Estado": true
+            },
+            {
+                "IDPais": 55,
+                "Pais": "COSTA RICA",
+                "Estado": true
+            },
+            {
+                "IDPais": 56,
+                "Pais": "CROACIA (HRVATSKA)",
+                "Estado": true
+            },
+            {
+                "IDPais": 57,
+                "Pais": "CUBA",
+                "Estado": true
+            },
+            {
+                "IDPais": 58,
+                "Pais": "DINAMARCA",
+                "Estado": true
+            },
+            {
+                "IDPais": 59,
+                "Pais": "DJIBOUTI",
+                "Estado": true
+            },
+            {
+                "IDPais": 60,
+                "Pais": "DOMINICA",
+                "Estado": true
+            },
+            {
+                "IDPais": 61,
+                "Pais": "ECUADOR",
+                "Estado": true
+            },
+            {
+                "IDPais": 62,
+                "Pais": "EGIPTO",
+                "Estado": true
+            },
+            {
+                "IDPais": 63,
+                "Pais": "EL SALVADOR",
+                "Estado": true
+            },
+            {
+                "IDPais": 64,
+                "Pais": "EMIRATOS ÁRABES UNIDOS",
+                "Estado": true
+            },
+            {
+                "IDPais": 65,
+                "Pais": "ERITREA",
+                "Estado": true
+            },
+            {
+                "IDPais": 66,
+                "Pais": "ESLOVENIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 67,
+                "Pais": "ESPAÑA",
+                "Estado": true
+            },
+            {
+                "IDPais": 68,
+                "Pais": "ESPAÑA",
+                "Estado": false
+            },
+            {
+                "IDPais": 69,
+                "Pais": "ESTADOS UNIDOS",
+                "Estado": false
+            },
+            {
+                "IDPais": 70,
+                "Pais": "ESTONIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 71,
+                "Pais": "ETIOPÍA",
+                "Estado": true
+            },
+            {
+                "IDPais": 72,
+                "Pais": "FIJI",
+                "Estado": true
+            },
+            {
+                "IDPais": 73,
+                "Pais": "FILIPINAS",
+                "Estado": true
+            },
+            {
+                "IDPais": 74,
+                "Pais": "FINLANDIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 75,
+                "Pais": "FRANCIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 76,
+                "Pais": "GABÓN",
+                "Estado": true
+            },
+            {
+                "IDPais": 77,
+                "Pais": "GAMBIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 78,
+                "Pais": "GEORGIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 79,
+                "Pais": "GHANA",
+                "Estado": true
+            },
+            {
+                "IDPais": 80,
+                "Pais": "GIBRALTAR",
+                "Estado": true
+            },
+            {
+                "IDPais": 81,
+                "Pais": "GRANADA",
+                "Estado": true
+            },
+            {
+                "IDPais": 82,
+                "Pais": "GRECIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 83,
+                "Pais": "GROENLANDIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 84,
+                "Pais": "GUADALUPE",
+                "Estado": true
+            },
+            {
+                "IDPais": 85,
+                "Pais": "GUAM",
+                "Estado": true
+            },
+            {
+                "IDPais": 86,
+                "Pais": "GUATEMALA",
+                "Estado": true
+            },
+            {
+                "IDPais": 87,
+                "Pais": "GUAYANA",
+                "Estado": true
+            },
+            {
+                "IDPais": 88,
+                "Pais": "GUAYANA FRANCESA",
+                "Estado": true
+            },
+            {
+                "IDPais": 89,
+                "Pais": "GUINEA",
+                "Estado": true
+            },
+            {
+                "IDPais": 90,
+                "Pais": "GUINEA ECUATORIAL",
+                "Estado": true
+            },
+            {
+                "IDPais": 91,
+                "Pais": "GUINEA-BISSAU",
+                "Estado": true
+            },
+            {
+                "IDPais": 92,
+                "Pais": "HAITÍ",
+                "Estado": true
+            },
+            {
+                "IDPais": 93,
+                "Pais": "HONDURAS",
+                "Estado": true
+            },
+            {
+                "IDPais": 94,
+                "Pais": "HUNGRÍA",
+                "Estado": true
+            },
+            {
+                "IDPais": 95,
+                "Pais": "INDIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 96,
+                "Pais": "INDONESIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 97,
+                "Pais": "IRAK",
+                "Estado": true
+            },
+            {
+                "IDPais": 98,
+                "Pais": "IRÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 99,
+                "Pais": "IRLANDA",
+                "Estado": true
+            },
+            {
+                "IDPais": 100,
+                "Pais": "ISLA BOUVET",
+                "Estado": true
+            },
+            {
+                "IDPais": 101,
+                "Pais": "ISLA DE CHRISTMAS",
+                "Estado": true
+            },
+            {
+                "IDPais": 102,
+                "Pais": "ISLANDIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 103,
+                "Pais": "ISLAS CAIMÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 104,
+                "Pais": "ISLAS COOK",
+                "Estado": true
+            },
+            {
+                "IDPais": 105,
+                "Pais": "ISLAS DE COCOS O KEELING",
+                "Estado": true
+            },
+            {
+                "IDPais": 106,
+                "Pais": "ISLAS FAROE",
+                "Estado": true
+            },
+            {
+                "IDPais": 107,
+                "Pais": "ISLAS HEARD Y MCDONALD",
+                "Estado": true
+            },
+            {
+                "IDPais": 108,
+                "Pais": "ISLAS MALVINAS",
+                "Estado": true
+            },
+            {
+                "IDPais": 109,
+                "Pais": "ISLAS MARIANAS DEL NORTE",
+                "Estado": true
+            },
+            {
+                "IDPais": 110,
+                "Pais": "ISLAS MARSHALL",
+                "Estado": true
+            },
+            {
+                "IDPais": 111,
+                "Pais": "ISLAS MENORES DE ESTADOS UNIDOS",
+                "Estado": true
+            },
+            {
+                "IDPais": 112,
+                "Pais": "ISLAS PALAU",
+                "Estado": true
+            },
+            {
+                "IDPais": 113,
+                "Pais": "ISLAS SALOMÓN",
+                "Estado": true
+            },
+            {
+                "IDPais": 114,
+                "Pais": "ISLAS SVALBARD Y JAN MAYEN",
+                "Estado": true
+            },
+            {
+                "IDPais": 115,
+                "Pais": "ISLAS TOKELAU",
+                "Estado": true
+            },
+            {
+                "IDPais": 116,
+                "Pais": "ISLAS TURKS Y CAICOS",
+                "Estado": true
+            },
+            {
+                "IDPais": 117,
+                "Pais": "ISLAS VÍRGENES (EE.UU.)",
+                "Estado": true
+            },
+            {
+                "IDPais": 118,
+                "Pais": "ISLAS VÍRGENES (REINO UNIDO)",
+                "Estado": true
+            },
+            {
+                "IDPais": 119,
+                "Pais": "ISLAS WALLIS Y FUTUNA",
+                "Estado": true
+            },
+            {
+                "IDPais": 120,
+                "Pais": "ISRAEL",
+                "Estado": true
+            },
+            {
+                "IDPais": 121,
+                "Pais": "ITALIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 122,
+                "Pais": "ITALIA",
+                "Estado": false
+            },
+            {
+                "IDPais": 123,
+                "Pais": "JAMAICA",
+                "Estado": true
+            },
+            {
+                "IDPais": 124,
+                "Pais": "JAPÓN",
+                "Estado": true
+            },
+            {
+                "IDPais": 125,
+                "Pais": "JORDANIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 126,
+                "Pais": "KAZAJISTÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 127,
+                "Pais": "KENIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 128,
+                "Pais": "KIRGUIZISTÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 129,
+                "Pais": "KIRIBATI",
+                "Estado": true
+            },
+            {
+                "IDPais": 130,
+                "Pais": "KUWAIT",
+                "Estado": true
+            },
+            {
+                "IDPais": 131,
+                "Pais": "LAOS",
+                "Estado": true
+            },
+            {
+                "IDPais": 132,
+                "Pais": "LESOTHO",
+                "Estado": true
+            },
+            {
+                "IDPais": 133,
+                "Pais": "LETONIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 134,
+                "Pais": "LÍBANO",
+                "Estado": true
+            },
+            {
+                "IDPais": 135,
+                "Pais": "LIBERIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 136,
+                "Pais": "LIBIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 137,
+                "Pais": "LIECHTENSTEIN",
+                "Estado": true
+            },
+            {
+                "IDPais": 138,
+                "Pais": "LITUANIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 139,
+                "Pais": "LUXEMBURGO",
+                "Estado": true
+            },
+            {
+                "IDPais": 140,
+                "Pais": "MACEDONIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 141,
+                "Pais": "MADAGASCAR",
+                "Estado": true
+            },
+            {
+                "IDPais": 142,
+                "Pais": "MALASIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 143,
+                "Pais": "MALAWI",
+                "Estado": true
+            },
+            {
+                "IDPais": 144,
+                "Pais": "MALDIVAS",
+                "Estado": true
+            },
+            {
+                "IDPais": 145,
+                "Pais": "MALÍ",
+                "Estado": true
+            },
+            {
+                "IDPais": 146,
+                "Pais": "MALTA",
+                "Estado": true
+            },
+            {
+                "IDPais": 147,
+                "Pais": "MARRUECOS",
+                "Estado": true
+            },
+            {
+                "IDPais": 148,
+                "Pais": "MARTINICA",
+                "Estado": true
+            },
+            {
+                "IDPais": 149,
+                "Pais": "MAURICIO",
+                "Estado": true
+            },
+            {
+                "IDPais": 150,
+                "Pais": "MAURITANIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 151,
+                "Pais": "MAYOTTE",
+                "Estado": true
+            },
+            {
+                "IDPais": 152,
+                "Pais": "MÉXICO",
+                "Estado": true
+            },
+            {
+                "IDPais": 153,
+                "Pais": "MICRONESIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 154,
+                "Pais": "MOLDAVIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 155,
+                "Pais": "MÓNACO",
+                "Estado": true
+            },
+            {
+                "IDPais": 156,
+                "Pais": "MONGOLIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 157,
+                "Pais": "MONTSERRAT",
+                "Estado": true
+            },
+            {
+                "IDPais": 158,
+                "Pais": "MOZAMBIQUE",
+                "Estado": true
+            },
+            {
+                "IDPais": 159,
+                "Pais": "NAMIBIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 160,
+                "Pais": "NAURU",
+                "Estado": true
+            },
+            {
+                "IDPais": 161,
+                "Pais": "NEPAL",
+                "Estado": true
+            },
+            {
+                "IDPais": 162,
+                "Pais": "NICARAGUA",
+                "Estado": true
+            },
+            {
+                "IDPais": 163,
+                "Pais": "NÍGER",
+                "Estado": true
+            },
+            {
+                "IDPais": 164,
+                "Pais": "NIGERIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 165,
+                "Pais": "NIUE",
+                "Estado": true
+            },
+            {
+                "IDPais": 166,
+                "Pais": "NORFOLK",
+                "Estado": true
+            },
+            {
+                "IDPais": 167,
+                "Pais": "NORUEGA",
+                "Estado": true
+            },
+            {
+                "IDPais": 168,
+                "Pais": "NUEVA CALEDONIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 169,
+                "Pais": "NUEVA ZELANDA",
+                "Estado": true
+            },
+            {
+                "IDPais": 170,
+                "Pais": "OMÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 171,
+                "Pais": "PAÍSES BAJOS",
+                "Estado": true
+            },
+            {
+                "IDPais": 172,
+                "Pais": "PANAMÁ",
+                "Estado": true
+            },
+            {
+                "IDPais": 173,
+                "Pais": "PAPÚA NUEVA GUINEA",
+                "Estado": true
+            },
+            {
+                "IDPais": 174,
+                "Pais": "PAQUISTÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 175,
+                "Pais": "PARAGUAY",
+                "Estado": true
+            },
+            {
+                "IDPais": 176,
+                "Pais": "PERÚ",
+                "Estado": true
+            },
+            {
+                "IDPais": 177,
+                "Pais": "PITCAIRN",
+                "Estado": true
+            },
+            {
+                "IDPais": 178,
+                "Pais": "POLINESIA FRANCESA",
+                "Estado": true
+            },
+            {
+                "IDPais": 179,
+                "Pais": "POLONIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 180,
+                "Pais": "PORTUGAL",
+                "Estado": true
+            },
+            {
+                "IDPais": 181,
+                "Pais": "PUERTO RICO",
+                "Estado": true
+            },
+            {
+                "IDPais": 182,
+                "Pais": "QATAR",
+                "Estado": true
+            },
+            {
+                "IDPais": 183,
+                "Pais": "REINO UNIDO",
+                "Estado": true
+            },
+            {
+                "IDPais": 184,
+                "Pais": "REPÚBLICA CENTROAFRICANA",
+                "Estado": true
+            },
+            {
+                "IDPais": 185,
+                "Pais": "REPÚBLICA CHECA",
+                "Estado": true
+            },
+            {
+                "IDPais": 186,
+                "Pais": "REPÚBLICA DE SUDÁFRICA",
+                "Estado": true
+            },
+            {
+                "IDPais": 187,
+                "Pais": "REPÚBLICA DEMOCRÁTICA DEL CONGO",
+                "Estado": true
+            },
+            {
+                "IDPais": 188,
+                "Pais": "REPÚBLICA DOMINICANA",
+                "Estado": true
+            },
+            {
+                "IDPais": 189,
+                "Pais": "REUNIÓN",
+                "Estado": true
+            },
+            {
+                "IDPais": 190,
+                "Pais": "RUANDA",
+                "Estado": true
+            },
+            {
+                "IDPais": 191,
+                "Pais": "RUMANIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 192,
+                "Pais": "RUSIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 193,
+                "Pais": "SAMOA",
+                "Estado": true
+            },
+            {
+                "IDPais": 194,
+                "Pais": "SAMOA OCCIDENTAL",
+                "Estado": true
+            },
+            {
+                "IDPais": 195,
+                "Pais": "SAN CRISTÓBAL Y NEVIS",
+                "Estado": true
+            },
+            {
+                "IDPais": 196,
+                "Pais": "SAN MARINO",
+                "Estado": true
+            },
+            {
+                "IDPais": 197,
+                "Pais": "SAN VICENTE Y LAS GRANADINAS",
+                "Estado": true
+            },
+            {
+                "IDPais": 198,
+                "Pais": "SANTA HELENA",
+                "Estado": true
+            },
+            {
+                "IDPais": 199,
+                "Pais": "SANTA LUCÍA",
+                "Estado": true
+            },
+            {
+                "IDPais": 200,
+                "Pais": "SANTO TOMÉ Y PRÍNCIPE",
+                "Estado": true
+            },
+            {
+                "IDPais": 201,
+                "Pais": "SENEGAL",
+                "Estado": true
+            },
+            {
+                "IDPais": 202,
+                "Pais": "SEYCHELLES",
+                "Estado": true
+            },
+            {
+                "IDPais": 203,
+                "Pais": "SIERRA LEONA",
+                "Estado": true
+            },
+            {
+                "IDPais": 204,
+                "Pais": "SINGAPUR",
+                "Estado": true
+            },
+            {
+                "IDPais": 205,
+                "Pais": "SIRIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 206,
+                "Pais": "SOMALIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 207,
+                "Pais": "SRI LANKA",
+                "Estado": true
+            },
+            {
+                "IDPais": 208,
+                "Pais": "SUDÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 209,
+                "Pais": "SUECIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 210,
+                "Pais": "SUIZA",
+                "Estado": true
+            },
+            {
+                "IDPais": 211,
+                "Pais": "SURINAM",
+                "Estado": true
+            },
+            {
+                "IDPais": 212,
+                "Pais": "TAILANDIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 213,
+                "Pais": "TAIWÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 214,
+                "Pais": "TANZANIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 215,
+                "Pais": "TAYIKISTÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 216,
+                "Pais": "TERRITORIOS BRITÁNICOS DEL OCÉANO ÍNDICO",
+                "Estado": true
+            },
+            {
+                "IDPais": 217,
+                "Pais": "TERRITORIOS FRANCESES DEL SUR",
+                "Estado": true
+            },
+            {
+                "IDPais": 218,
+                "Pais": "TIMOR ORIENTAL",
+                "Estado": true
+            },
+            {
+                "IDPais": 219,
+                "Pais": "TOGO",
+                "Estado": true
+            },
+            {
+                "IDPais": 220,
+                "Pais": "TONGA",
+                "Estado": true
+            },
+            {
+                "IDPais": 221,
+                "Pais": "TRINIDAD Y TOBAGO",
+                "Estado": true
+            },
+            {
+                "IDPais": 222,
+                "Pais": "TÚNEZ",
+                "Estado": true
+            },
+            {
+                "IDPais": 223,
+                "Pais": "TURKMENISTÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 224,
+                "Pais": "TURQUÍA",
+                "Estado": true
+            },
+            {
+                "IDPais": 225,
+                "Pais": "TUVALU",
+                "Estado": true
+            },
+            {
+                "IDPais": 226,
+                "Pais": "UCRANIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 227,
+                "Pais": "UGANDA",
+                "Estado": true
+            },
+            {
+                "IDPais": 228,
+                "Pais": "URUGUAY",
+                "Estado": true
+            },
+            {
+                "IDPais": 229,
+                "Pais": "URUGUAY",
+                "Estado": false
+            },
+            {
+                "IDPais": 230,
+                "Pais": "UZBEKISTÁN",
+                "Estado": true
+            },
+            {
+                "IDPais": 231,
+                "Pais": "VANUATU",
+                "Estado": true
+            },
+            {
+                "IDPais": 232,
+                "Pais": "VENEZUELA",
+                "Estado": true
+            },
+            {
+                "IDPais": 233,
+                "Pais": "VIETNAM",
+                "Estado": true
+            },
+            {
+                "IDPais": 234,
+                "Pais": "YEMEN",
+                "Estado": true
+            },
+            {
+                "IDPais": 235,
+                "Pais": "YUGOSLAVIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 236,
+                "Pais": "ZAMBIA",
+                "Estado": true
+            },
+            {
+                "IDPais": 237,
+                "Pais": "ZIMBABUE",
+                "Estado": true
+            }
+        ];
+        function cargarDatosDesdeJSONFltr(pLimit) {
+            alert('Este boton esta actualmente en desarrollo, pero pronto lo podras usar');
+
+            var cnsFilter = cnsRegionalPaises.filter(function (pais) {
+                return pais.Pais.toLowerCase().includes("agr");
+            });
+            // RegBsqFltArmar()
+
+        }
+        function cargarDatosDesdeJSON(pLimit) {
+            var tableBody = document.querySelector("#idTblRsltBsq tbody");
+            tableBodyClean(tableBody); // Limpiar toda la tabla antes de modificarla
+
+            var itemsToLoad = cnsRegionalPaises;
+            var checkboxChecked = document.querySelector("#BsqRsltLimit").checked;
+            var inputLimitCnt = document.querySelector("#idBsqRsltLimitCnt");
+
+            if (checkboxChecked && pLimit === 0 && inputLimitCnt) {
+                var customLimit = parseInt(inputLimitCnt.value, 10);
+                if (!isNaN(customLimit)) {
+                    itemsToLoad = cnsRegionalPaises.slice(0, customLimit);
+                }
+            } else if (pLimit !== 0) {
+                itemsToLoad = cnsRegionalPaises.slice(0, pLimit);
+            }
+
+            itemsToLoad.forEach(function (pais, index) { // Agregamos "index" como segundo parámetro
+                var row = document.createElement("tr");
+
+                var paisCell = document.createElement("td");
+                if (index === 0) {
+                    paisCell.innerHTML = "&#9830; "; // Agregar el símbolo de rombo antes del nombre del país
+                }
+                row.appendChild(paisCell);
+
+                var idCell = document.createElement("td");
+                idCell.textContent = pais.IDPais;
+                row.appendChild(idCell);
+
+                var paisNameCell = document.createElement("td"); // Cambiamos el nombre de la variable para evitar confusión
+                paisNameCell.textContent = pais.Pais;
+                row.appendChild(paisNameCell);
+
+                var estadoCell = document.createElement("td");
+                estadoCell.textContent = pais.Estado;
+                row.appendChild(estadoCell);
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        function RsltRegNav(pDirection) {
+            var tableBody = document.querySelector("#idTblRsltBsq tbody");
+            var romboRowIndex = -1;
+            var romboRowIndexNew = -1;
+            var tableMaxRow = tableBody.children.length - 1;
+
+            // Buscando el registro actual
+            if (tableBody.children.length > 0) {
+                for (var i = 0; i < tableBody.children.length; i++) {
+                    var firstCell = tableBody.children[i].querySelector("td:first-child");
+                    if (firstCell.textContent.trim() === "♦") { // Utiliza el símbolo ♦ en lugar de "&#9830;"
+                        romboRowIndex = i;
+
+                        // console.log('Antes de accion Nuevo >: '+ romboRowIndexNew);
+                        switch (pDirection) {
+                            case -999:
+                                romboRowIndexNew = 0; // 0 para el primer registro
+                                break;
+                            case -1:
+                                if (romboRowIndex > 0) {
+                                    romboRowIndexNew = romboRowIndex - 1;
+                                } else {
+                                    romboRowIndexNew = romboRowIndex
+                                }
+                                break;
+                            case 1:
+                                if (romboRowIndex < tableMaxRow) {
+                                    romboRowIndexNew = romboRowIndex + 1;
+                                } else {
+                                    romboRowIndexNew = romboRowIndex
+                                }
+                                break;
+                            case 999:
+                                romboRowIndexNew = tableMaxRow;
+                                break;
+                            default:
+                                break;
+                        }
+                        console.log('Antes de accion Actual >: ' + romboRowIndex);
+
+                        tableBody.children[romboRowIndex].querySelector("td:first-child").innerHTML = "";
+                        tableBody.children[romboRowIndexNew].querySelector("td:first-child").innerHTML = "&#9830;";
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        function RsltBsqClean() {
+            var tableBody = document.querySelector("#idTblRsltBsq tbody");
+            tableBodyClean(tableBody); // Limpiar toda la tabla antes de modificarla
+        }
+
+        function ChargeFrameRslt() {
+            var tableBody = document.querySelector("#idTblRsltBsq tbody");
+            var cntTableBody = tableBody.children.length
+
+            // Buscando el registro actual
+            if (cntTableBody > 0) {
+                var cnssVarPaisID = document.querySelector("#id-frm-test-pais-id");
+                var cnssVarPaisPais = document.querySelector("#id-frm-test-pais-pais");
+                var cnssVarPaisEstado = document.querySelector("#id-frm-test-pais-activado");
+
+                // alert('La cantidad de registros de la tabla es de >: ' + cntTableBody);
+
+                for (var i = 0; i < tableBody.children.length; i++) {
+                    var firstCell = tableBody.children[i].querySelector("td:first-child");
+                    if (firstCell.textContent.trim() === "♦") { // Utiliza el símbolo ♦ en lugar de "&#9830;"
+                        romboRowIndex = i;
+
+                        cnssVarPaisID.innerHTML = tableBody.children[i].querySelector("td:nth-child(2)").textContent;
+                        cnssVarPaisPais.innerHTML = tableBody.children[i].querySelector("td:nth-child(3)").textContent;
+                        if (tableBody.children[i].querySelector("td:nth-child(4)").textContent.trim()) {
+                            cnssVarPaisEstado.innerHTML = 'Si';
+                        } else {
+                            cnssVarPaisEstado.innerHTML = 'No';
+                        }
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        function tableBodyClean(tableBody) {
+            // Limpiar la tabla antes de agregar nuevos datos
+            while (tableBody.firstChild) {
+                tableBody.removeChild(tableBody.firstChild);
+            }
+        }
+        function RegAbmClean() {
+            var cnssVarPaisID = document.querySelector("#id-frm-test-pais-id");
+            var cnssVarPaisPais = document.querySelector("#id-frm-test-pais-pais");
+            var cnssVarPaisEstado = document.querySelector("#id-frm-test-pais-activado");
+
+            cnssVarPaisID.innerHTML = '..........';
+            cnssVarPaisPais.innerHTML = '........................................';
+            cnssVarPaisEstado.innerHTML = 'No';
+        }
+        function RegBsqFltACnd() {
+            // Obtener los valores seleccionados de los selectores
+            const campoVal = document.getElementById("CntdBsqOpcACampoItValue").value;
+            const operador = document.getElementById("BsqOpcACmbxOperador").value;
+            const condicion = document.getElementById("condicionA").value;
+
+            // Construir el query SQL
+            let query = "";
+            let campo = "";
+
+            if (condicion.trim() !== "") {
+
+                if (campoVal === "opBsqA048ID") {
+                    campo = "IDPais";
+                } else if (campoVal === "opBsqA048Pais") {
+                    campo = "Pais";
+                } else {
+                    campo = "Estado";
+                }
+
+                if (operador === "opBsqA01") {
+                    query = `${campo} != '${condicion}'`;
+                } else if (operador === "opBsqA02") {
+                    query = `${campo} = '${condicion}'`;
+                } else if (operador === "opBsqA03") {
+                    query = `${campo} <= '${condicion}'`;
+                } else if (operador === "opBsqA04") {
+                    query = `${campo} >= '${condicion}'`;
+                } else if (operador === "opBsqA05") {
+                    query = `${campo} LIKE '%${condicion}%'`;
+                } else if (operador === "opBsqA06") {
+                    query = `${campo} LIKE '${condicion}%'`;
+                } else if (operador === "opBsqA07") {
+                    query = `${campo} LIKE '%${condicion}'`;
+                }
+            }
+            return query;
+        }
+
+        function RegBsqFltBCnd() {
+            // Obtener los valores seleccionados de los selectores
+            const campoVal = document.getElementById("CntdBsqOpcBCampoItValue").value;
+            const operador = document.getElementById("BsqOpcBCmbxOperador").value;
+            const condicion = document.getElementById("condicionB").value;
+
+            // Construir el query SQL
+            let query = "";
+            let campo = "";
+
+            const checkboxUnion = document.getElementById('BsqOpcUnion');
+
+            if (checkboxUnion.checked) {
+                if (condicion.trim() !== "") {
+                    // Checkbox está marcado
+                    if (campoVal === "opBsqA048ID") {
+                        campo = "IDPais";
+                    } else if (campoVal === "opBsqA048Pais") {
+                        campo = "Pais";
+                    } else {
+                        campo = "Estado";
+                    }
+
+                    if (operador === "opBsqA01") {
+                        query = `${campo} != '${condicion}'`;
+                    } else if (operador === "opBsqA02") {
+                        query = `${campo} = '${condicion}'`;
+                    } else if (operador === "opBsqA03") {
+                        query = `${campo} <= '${condicion}'`;
+                    } else if (operador === "opBsqA04") {
+                        query = `${campo} >= '${condicion}'`;
+                    } else if (operador === "opBsqA05") {
+                        query = `${campo} LIKE '%${condicion}%'`;
+                    } else if (operador === "opBsqA06") {
+                        query = `${campo} LIKE '${condicion}%'`;
+                    } else if (operador === "opBsqA07") {
+                        query = `${campo} LIKE '%${condicion}'`;
+                    }
+                }
+            } else {
+                // Checkbox no está marcado
+                return query;
+            }
+            return query;
+        }
+        function RegBsqFltArmar() {
+            const radioY = document.getElementById('optY');
+            const radioO = document.getElementById('optO');
+            const resultadoTexto = document.getElementById('resultadoTexto');
+            var vNx = "";
+
+            if (radioY.checked) {
+                vNx = ' Y ';
+            } else if (radioO.checked) {
+                vNx = ' O ';
+            }
+            var cndA = RegBsqFltACnd();
+            var cndB = RegBsqFltBCnd();
+
+            if (cndA !== "" && cndB !== "") {
+                return cndA + vNx + cndB;
+            } else if (cndA !== "") {
+                return cndA;
+            } else {
+                return cndB;
+            }
+        }
+    </script>
+</body>
+
+</html>

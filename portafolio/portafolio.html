@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio - Mi Currículum - fmgsch@gmail.com</title>
+    <!-- Agrega la referencia a Bootstrap CSS -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- Vinculos a Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Vinculos a Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <style>
+        .trj-proy {
+            border: 1px solid #1507dd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: small;
+        }
+
+        .trj-proy-title {
+            border-bottom: 1px solid blue;
+        }
+
+        .card-img-tec {
+            position: relative;
+            height: 25px;
+            width: auto;
+        }
+
+        .card-img-proy {
+            height: 400px;
+            width: calc(99%-10px);
+        }
+
+        .BarTiFrm,
+        .BarTi,
+        .BarTiTec,
+        .BarTiBtns {
+            display: flex;
+            flex-direction: row;
+            /* border-top: 1px solid blue; */
+            padding: 0.15em;
+            gap: 0.30em;
+        }
+
+        .BarTiFrm {
+            width: 100%;
+        }
+
+        .BarTiBtns,
+        .BarTiBtns-txt,
+        .BarTiBtns-img {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+
+        #BarTiBtns-img-aref {
+            position: relative;
+            right: calc(-1750%)
+        }
+
+        #idBarTiBtns {
+            margin-right: 10px !important;
+            /* transition: transform 0.3s, font-size 0.3s; */
+        }
+
+        #idBarTiBtns:hover {
+            cursor: pointer;
+            transform: scale(1.5);
+            /* Agrandamiento del 50% */
+        }
+
+        .vp-none {
+            visibility: hidden;
+        }
+        .barmnu{
+            display: flex;
+            flex-direction: row;
+            align-content: space-between;
+            width: 100em;
+        }
+        .barmnuit-dd{
+            margin-left: 17.5em;
+        }
+        .blue-linebottom{
+            border-bottom: 1px solid blue;
+        }
+        .blue-txt{
+            border-bottom: 1px solid blue;
+            color: blue;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="./images/prs-000.jpg" alt="Foto de perfil" class="img-fluid rounded-circle">
+
+                <div class="barmnu">
+                    <div class="barmnuit-ll">
+                        <a class="nav-link" href="../index.html">
+                            <img id="logo-home" src="./assets/botones/butHome.png" alt="wp buton home" height="20" width="30">
+                        </a>
+                    </div>
+                    <div class="barmnuit-dd">
+                        <a class="nav-link" href="../rrhh/cv/cvfmg.pdf">
+                            <img id="logo-cvpdf" src="./assets/botones/PDF-244x300.png" alt="wp buton home" height="20" width="30">
+                        </a>
+                    </div>
+                </div>
+                <h2 class="mt-3">Fernando Martin Gan</h2>
+                <h5>
+                    <p>Desarrollador Full Stack (Desk / Web)</p>
+                </h5>
+                <p>Contacto : fmgsch@gmail.com</p>
+
+                <h5>Perfil</h5>
+                <p>Lider de equipo, Creativo, Desarrollador e Implementador.</p>
+
+                <h5>Experiencia Laboral</h5>
+                <p>Durante mucho tiempo, en todas las empresas que he trabajado pude recorrer todos los puestos de
+                    trabajo lo que me dio una amplitud de vision y criterio de nivel. En lo personal creo que toda
+                    empresa necesita tiempo, financiamiento, visión, práctica y la implementación justa para ser
+                    exitosa.
+                    . </p>
+
+                <h5>Habilidades</h5>
+                <ul>
+                    <li>Visual Basic 6 (Senior)</li>
+                    <li>Visual Basic Para Apliaciones (Senior)</li>
+                    <li>Dba Microsoft SQL Server (Senior)</li>
+                    <li>HTML, CSS, JavaScript (Junior)</li>
+                    <li>Desarrollo Web Responsive (Junior)</li>
+                    <li>Framework Bootstrap (Trainee)</li>
+                    <li>Help Desk y Soporte (Senior)</li>
+                    <li>Cableado Estructurado y Redes (Senior)</li>
+                    <li>Automatizacion TI (Intermediate)</li>
+                    <li>Expositor / Conferencista (Senior)</li>
+                    <li>Relevador de sistemas y procesos (Intermediate)</li>
+                </ul>
+                <h5>Idiomas</h5>
+                <ul>
+                    <li>Español (Senior)</li>
+                    <li>Ingles (B1)</li>
+                </ul>
+                <h5>Historial de Trabajo</h5>
+                <p><strong>Bpo Change</strong><br>Consultor Informatico<br> Fechas: Ene 2019 - Presente</p>
+                <p><strong>Instituto Gobernador Fontana</strong><br> Profesor Computacion (4°, 5° y 6° Año)<br> Fechas:
+                    Ene 2014 - Dic 2018</p>
+                <p><strong>Conectar Igualdad - ADR Chubut - Region 5</strong><br> Adminitrador de Servidores debian<br>
+                    Fechas: Ene 2013 - Dic 2013</p>
+                <p><strong>Solsis SA</strong><br> Jefe Infraestructura<br> Fechas: Ene 2012 - Dic 2012</p>
+                <p><strong>Fagra SA</strong><br> Desarrollador Visual Basic 6 y Sql Server<br> Fechas: Ene 2003 - Dic
+                    2011</p>
+                <p><strong>Indarsist SRL</strong><br> Desarrollador Visual Basic 6 y Visual Fox Pro<br> Fechas: Ene 2002 - Dic
+                    2003</p>
+                <p><strong>Acivol SA</strong><br> Desarrollador QBasic<br> Fechas: Antes del 2002</p>
+
+                <h5>Educación</h5>
+                <p><strong>Secundario</strong><br>Recibido Perito Comercial especializado en Admín. de Empresas<br>
+                    Fecha: 2004, Matrícula. 0047273.</p>
+            </div>
+            <div class="col-md-8">
+                <!-- Tarjeta de proyecto - principio --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->
+                <div class="trj-proy">
+                    <h5 class="card-title text-center trj-proy-title">Bpo Change-Testeando CRUD-Method JS-Gan-Contacto : fmgsch@gmail.com</h5>
+                    <h6 class="card-subtitle mb-2 text-muted text-center linebottom-blue">Developer: Fernando Martin
+                        Gan</h6>
+                    <p class="card-text text-muted text-center">Plantilla creada para utilizar como buscador y ABM
+                        de registros,
+                        esta plantilla en principio guarda datos en un json dentro de la pagina web, en proximas
+                        etapas cuando
+                        se agregue la conexion a bases de datos, los datos podran ser guardado en una base Sql,
+                        Posgret, Etc. </p>
+                        <h6 class="card-subtitle mb-2 text-muted text-center ">Github : <a href="https://github.com/FernandoMGan/test-by-js-crud.git">https://github.com/FernandoMGan/test-by-js-crud.git</a></h6>
+                        <img src="./grid-and-crud/inf/portada-000.jpg" class="card-img-proy" alt="Test CRUD by JS"
+                        height="300">
+                    <div class="BarTiFrm" id="">
+                        <div class="BarTiTec">
+                            <div class="BarMenuIt-ic"><img src="./assets/tecnologias/HTML5.png" class="card-img-tec"
+                                    alt="Html:5" height="30px"></div>
+                            <div class="BarMenuIt-ic"><img src="./assets/tecnologias/CSS3.png" class="card-img-tec"
+                                    alt="Css" height="30px"></div>
+                            <div class="BarMenuIt-ic"><img src="./assets/tecnologias/js.png" class="card-img-tec"
+                                    alt="Js" height="30px"></div>
+                            <div class="BarMenuIt-ic"><img src="./assets/tecnologias/Bootstrap.png" class="card-img-tec"
+                                    alt="Bootstrap" height="30px"></div>
+
+                            <div class="BarMenuIt-ic vp-none"><img src="./assets/tecnologias/Node Js.png"
+                                    class="card-img-tec" alt="Node Js" height="30px"></div>
+                            <div class="BarMenuIt-ic vp-none"><img src="./assets/tecnologias/PHP.png"
+                                    class="card-img-tec" alt="Php" height="30px"></div>
+                            <div class="BarMenuIt-ic vp-none"><img src="./assets/tecnologias/React.png"
+                                    class="card-img-tec" alt="React" height="30px"></div>
+                        </div>
+                        <div class="BarTiBtns-img">
+                            <a href="./grid-and-crud/grid-and-crud.html" id="BarTiBtns-img-aref">
+                                <img src="./assets/botones/arrow-right-square-fill.svg" class="card-img-tec"
+                                    alt="Visitar Sitio" height="30px" width="30px">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta de proyecto - Fin --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->
+
+
+
+
+
+                <!-- Tarjeta de proyecto - principio --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->
+                <div class="trj-proy">
+                    <h5 class="card-title text-center trj-proy-title">Testeando Json Works - Buscador by JS - Devel: Fernando M. Gan </h5>
+                    <h6 class="card-subtitle mb-2 text-muted text-center linebottom-blue">Developer: Fernando Martin
+                        Gan</h6>
+                    <p class="card-text text-muted text-center">Plantilla creada para utilizar como buscador y ABM
+                        de registros,
+                        esta plantilla en principio guarda datos en un json dentro de la pagina web, en proximas
+                        etapas cuando
+                        se agregue la conexion a bases de datos, los datos podran ser guardado en una base Sql,
+                        Posgret, Etc. </p>
+                    <h6 class="card-subtitle mb-2 text-muted text-center ">Github : <a href="https://github.com/FernandoMGan/test-by-js-buscador">https://github.com/FernandoMGan/test-by-js-buscador</a></h6>
+                    <img src="./json-works-buscador/inf/portada-000.jpg" class="card-img-proy" alt="Test Search by JS"
+                        height="300">
+                    <div class="BarTiFrm" id="">
+                        <div class="BarTiTec">
+                            <div class="BarMenuIt-ic"><img src="./assets/tecnologias/HTML5.png" class="card-img-tec"
+                                    alt="Html:5" height="30px"></div>
+                            <div class="BarMenuIt-ic"><img src="./assets/tecnologias/CSS3.png" class="card-img-tec"
+                                    alt="Css" height="30px"></div>
+                            <div class="BarMenuIt-ic"><img src="./assets/tecnologias/js.png" class="card-img-tec"
+                                    alt="Js" height="30px"></div>
+                            <div class="BarMenuIt-ic"><img src="./assets/tecnologias/Bootstrap.png" class="card-img-tec"
+                                    alt="Bootstrap" height="30px"></div>
+
+                            <div class="BarMenuIt-ic vp-none"><img src="./assets/tecnologias/Node Js.png"
+                                    class="card-img-tec" alt="Node Js" height="30px"></div>
+                            <div class="BarMenuIt-ic vp-none"><img src="./assets/tecnologias/PHP.png"
+                                    class="card-img-tec" alt="Php" height="30px"></div>
+                            <div class="BarMenuIt-ic vp-none"><img src="./assets/tecnologias/React.png"
+                                    class="card-img-tec" alt="React" height="30px"></div>
+                        </div>
+                        <div class="BarTiBtns-img">
+                            <a href="./json-works-buscador/json-works.html" id="BarTiBtns-img-aref">
+                                <img src="./assets/botones/arrow-right-square-fill.svg" class="card-img-tec"
+                                    alt="Visitar Sitio" height="30px" width="30px">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta de proyecto - Fin --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->                
+            </div>
+        </div>
+        <!-- Agrega la referencia a Bootstrap JS (opcional) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+
+</html>

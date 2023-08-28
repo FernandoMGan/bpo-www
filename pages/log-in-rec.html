@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <!-- Declaracion de metas de compatibilidad -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Declaracion de archivo java script -->
+        <!-- <script src="../js/main.js"></script> -->
+        <!-- Declaracion de estilos generales -->
+        <link rel="stylesheet" href="../css/styles.css">
+        <!-- <link rel="stylesheet" href="./css/fonts.css"> -->
+        <!-- Declaracion de estilos responsive -->
+        <!-- <link rel="stylesheet" href="./responsive/movile.css" media="screen and (min-width: 400px"> -->
+        <!-- <link rel="stylesheet" href="./responsive/tablet.css" media="screen and (min-width: 600px"> -->
+        <!-- <link rel="stylesheet" href="./responsive/desktop.css" media="screen and (min-width: 800px"> -->
+        <!-- Declaracion de espiritu de pagina y posicionamiento de servidores -->
+        <meta name="description" content="Bpo Change - Sarmiento - Chubut">
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+        <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+        <!-- Declaracion de titulo de pagina y pestaña -->
+        <title>Bpo Change ( Login de Usuario - Recordatorio de contraseña )</title>
+        <!-- Declaracion de vinculos de audio y video -->
+        <!-- <audio src="./music/dev-bpo.mp3" autoplay></audio> -->
+        <!-- <video src="./videos/dev-bpo.mp4" controls width="640" height="320"></video> -->
+    </head>
+    <header class="navBarCnt">
+        <section id="Initial"></section>
+    </header>
+    <main>
+        <container>
+            <form class="formLoguin" action="" method="post">
+                <center>
+                    <img src="../assets/logosCliente/logoCliente.png" alt="logo" class="logo" height="75" width="75">
+                </center>
+        
+                <!-- <h1 class="title">Bpo Change</h1> -->
+                <h2 class="title">Recordatorio de acceso a tu cuenta</h2>
+                <h3 class="subtitle">Ingresa el correo con el que te habias registrado en el pasado</h3>
+
+                <label for="email" class="label">Correo electrónico:</label><br>
+                <input type="email" id="logEmail" placeholder="Ingresa un emial valido" name="email" class="input"><br>
+
+                <div class="formLoguinButton">
+                    <input type="button" value="ACEPTAR" class="primary-button login-button" id="btnFormLogInOk" onclick="location.href='./log-in-rec-end.html'">
+                    <input type="button" value="CANCELAR" class="secundary-button login-button" id="btnFormCancel" onclick="location.href='./log-in.html'"> 
+                    <input type="reset"  value="LIMPIAR" class="secundary-button login-button" id="btnFormReset" onclick="location.href='#'">
+                </div>
+            </form>
+            <script src="../js/main.js"></script>
+        </container>
+    </main>
+</body>
+<!-- <footer>
+    <div id="BarFooter"></div> 
+</footer> -->
+</html>
